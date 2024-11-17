@@ -2,26 +2,26 @@ using UnityEngine;
 
 public class CardDeckManager : MonoBehaviour
 {
-    public GameObject[] cards; // Asigna las 52 cartas del mazo
-    public Transform[] cardPositions; // Asigna los 6 Empty GameObjects de la mesa
+    public GameObject[] cards;
+    public Transform[] cardPositions; 
 
-    private GameObject[] selectedCards; // Cartas seleccionadas
+    private GameObject[] selectedCards; 
 
     void Start()
     {
-        // Seleccionar seis cartas aleatorias del mazo
+        
         selectedCards = GetRandomCards(6);
 
-        // Colocar las cartas en las posiciones predefinidas
+      
         for (int i = 0; i < selectedCards.Length; i++)
         {
             GameObject card = selectedCards[i];
             Transform position = cardPositions[i];
 
-            card.transform.position = position.position; // Posicionar la carta
-            card.transform.rotation = position.rotation; // Ajustar la rotación
+            card.transform.position = position.position; 
+            card.transform.rotation = position.rotation;
             card.transform.Rotate(180, 0, 0);
-            card.SetActive(true); // Activar la carta
+            card.SetActive(true);
         }
     }
 
@@ -34,9 +34,9 @@ public class CardDeckManager : MonoBehaviour
             int index;
             do
             {
-                index = random.Next(0, cards.Length); // Seleccionar una carta aleatoria
+                index = random.Next(0, cards.Length);
             }
-            while (System.Array.Exists(randomCards, c => c == cards[index])); // Evitar duplicados
+            while (System.Array.Exists(randomCards, c => c == cards[index])); 
 
             randomCards[i] = cards[index];
         }
@@ -45,7 +45,7 @@ public class CardDeckManager : MonoBehaviour
 
     public void MoveCardToTable(GameObject card, Transform targetPosition)
     {
-        // Mover la carta a una posición específica en la mesa
+      
         card.transform.position = targetPosition.position;
         card.transform.rotation = targetPosition.rotation;
     }

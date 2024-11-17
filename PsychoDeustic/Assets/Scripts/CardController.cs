@@ -8,7 +8,7 @@ public class CardController : MonoBehaviour
 
     void Start()
     {
-        // Buscar el CardDeckManager en la escena
+        
         cardDeckManager = FindObjectOfType<CardDeckManager>();
     }
 
