@@ -15,6 +15,7 @@ public class CardController : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("Carta seleccionada: " + gameObject.name);
-        cardDeckManager.MoveCardToTable(gameObject);
+        Transform targetPosition = cardDeckManager.cardPositions[0];
+        cardDeckManager.MoveCardToTable(gameObject, targetPosition);
     }
 }

@@ -2,24 +2,26 @@ using UnityEngine;
 
 public class CardDeckManager : MonoBehaviour
 {
-    public GameObject[] cards; // Asigna aquí las 52 cartas (hijos del Card Deck)
-    public Transform leftHand; // Punto donde se colocarán las cartas en la mano izquierda
-    public Transform table; // Punto donde se colocarán las cartas en la mesa
+    public GameObject[] cards; // Asigna las 52 cartas del mazo
+    public Transform[] cardPositions; // Asigna los 6 Empty GameObjects de la mesa
 
-    private GameObject[] selectedCards; // Almacena las cartas seleccionadas
+    private GameObject[] selectedCards; // Cartas seleccionadas
 
     void Start()
     {
-        // Seleccionar seis cartas aleatorias
+        // Seleccionar seis cartas aleatorias del mazo
         selectedCards = GetRandomCards(6);
 
-        // Colocar las cartas en la mano izquierda
+        // Colocar las cartas en las posiciones predefinidas
         for (int i = 0; i < selectedCards.Length; i++)
         {
             GameObject card = selectedCards[i];
-            card.transform.position = leftHand.position + new Vector3(0.1f * i, 0, 0); // Espaciado horizontal
-            card.transform.rotation = leftHand.rotation;
-            card.SetActive(true);
+            Transform position = cardPositions[i];
+
+            card.transform.position = position.position; // Posicionar la carta
+            card.transform.rotation = position.rotation; // Ajustar la rotación
+            card.transform.Rotate(180, 0, 0);
+            card.SetActive(true); // Activar la carta
         }
     }
 
@@ -41,9 +43,10 @@ public class CardDeckManager : MonoBehaviour
         return randomCards;
     }
 
-    public void MoveCardToTable(GameObject card)
+    public void MoveCardToTable(GameObject card, Transform targetPosition)
     {
-        card.transform.position = table.position; // Mover la carta a la mesa
-        card.transform.rotation = table.rotation;
+        // Mover la carta a una posición específica en la mesa
+        card.transform.position = targetPosition.position;
+        card.transform.rotation = targetPosition.rotation;
     }
 }
