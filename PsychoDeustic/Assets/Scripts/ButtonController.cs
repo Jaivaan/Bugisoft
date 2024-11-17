@@ -13,8 +13,12 @@ public class ButtonController : MonoBehaviour
     {
         if (isClickable)
         {
-            XRRayInteractor rayInteractor = FindObjectOfType<XRRayInteractor>();
-            rayInteractor.GetComponent<LineRenderer>().material.color = Color.green;
+            // Cambiar color del botón a azul
+            isClickable = false;
+            GetComponent<Renderer>().material = blueMaterial;
+
+            // Notificar al GameManager
+            GameManager.Instance.CheckIfDeathButton(this);
         }
     }
 
@@ -26,11 +30,13 @@ public class ButtonController : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("Botón clickeado");
         if (isClickable)
         {
             isClickable = false;
             GetComponent<MeshRenderer>().material = blueMaterial;
             GameManager.Instance.CheckIfDeathButton(this); // Verificar si este botón es el "mortal"
+            
         }
     }
 
