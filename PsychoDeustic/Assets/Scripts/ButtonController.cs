@@ -11,6 +11,7 @@ public class ButtonController : MonoBehaviour
 
     public void OnHoverEnter()
     {
+        /*
         if (isClickable)
         {
             // Cambiar color del botón a azul
@@ -20,6 +21,7 @@ public class ButtonController : MonoBehaviour
             // Notificar al GameManager
             GameManager.Instance.CheckIfDeathButton(this);
         }
+        */
     }
 
     public void OnHoverExit()

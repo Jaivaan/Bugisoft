@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     private CardDeckManager cardDeckManager;
+    public Transform targetPosition;
 
     void Start()
     {
@@ -15,7 +16,7 @@ public class CardController : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("Carta seleccionada: " + gameObject.name);
-        Transform targetPosition = cardDeckManager.cardPositions[0];
+        targetPosition.transform.Rotate(180, 0, 0);
         cardDeckManager.MoveCardToTable(gameObject, targetPosition);
     }
 }
