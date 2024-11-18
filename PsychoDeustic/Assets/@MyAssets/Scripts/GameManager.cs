@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public ButtonController[] buttons; // Asigna aquí los botones
-    public TMP_Text deathMessage; // Asigna el texto de la UI
+    public ButtonController[] buttons;
+    public TMP_Text deathMessage;
 
     private ButtonController deathButton;
 
@@ -40,16 +40,13 @@ public class GameManager : MonoBehaviour
 
     private void ResetButtons()
     {
-        // Ocultar mensaje de muerte
         deathMessage.gameObject.SetActive(false);
 
-        // Resetear todos los botones
         foreach (ButtonController button in buttons)
         {
             button.ResetButton();
         }
 
-        // Elegir un botón aleatorio como "mortal"
         deathButton = buttons[UnityEngine.Random.Range(0, buttons.Length)];
 
     }

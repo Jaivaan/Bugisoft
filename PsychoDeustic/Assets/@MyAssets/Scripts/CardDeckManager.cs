@@ -1,11 +1,16 @@
 using UnityEngine;
+using TMPro;
+
 
 public class CardDeckManager : MonoBehaviour
 {
     public GameObject[] cards;
     public Transform[] cardPositions; 
 
-    private GameObject[] selectedCards; 
+    private GameObject[] selectedCards;
+    public Transform[] centralPositions;
+    public TMP_Text confirmationText;
+    private int currentIndex = 0;
 
     void Start()
     {
@@ -43,10 +48,54 @@ public class CardDeckManager : MonoBehaviour
         return randomCards;
     }
 
-    public void MoveCardToTable(GameObject card, Transform targetPosition)
+    public void MoveCardToTable(GameObject card)
     {
-      
-        card.transform.position = targetPosition.position;
-        card.transform.rotation = targetPosition.rotation;
+
+        if (currentIndex < centralPositions.Length)
+        {
+            Transform targetPosition = centralPositions[currentIndex];
+            card.transform.position = targetPosition.position;
+            card.transform.rotation = targetPosition.rotation;
+            currentIndex++;
+        }
+        else
+        {
+            Debug.LogWarning("No hay más posiciones centrales disponibles.");
+        }
     }
+
+    public void ConfirmPlay()
+    {
+        int aceCount = 0;
+
+        for (int i = 0; i < centralPositions.Length; i++)
+        {
+            Transform centralPosition = centralPositions[i];
+
+            foreach (GameObject card in selectedCards)
+            {
+                if (card != null && Vector3.Distance(card.transform.position, centralPosition.position) < 0.01f)
+                {
+                    if (card.name.Contains("Ace"))
+                    {
+                        aceCount++;
+                    }
+                    break; 
+                }
+            }
+        }
+
+        confirmationText.text = $"{aceCount} Ases";
+        confirmationText.gameObject.SetActive(true);
+
+        StartCoroutine(HideConfirmationText());
+    }
+
+    private System.Collections.IEnumerator HideConfirmationText()
+    {
+        yield return new WaitForSeconds(2);
+        confirmationText.gameObject.SetActive(false);
+    }
+
+
 }
