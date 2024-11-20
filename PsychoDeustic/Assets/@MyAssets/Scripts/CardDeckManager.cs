@@ -11,6 +11,7 @@ public class CardDeckManager : MonoBehaviour
     public Transform[] centralPositions;
     public TMP_Text confirmationText;
     private int currentIndex = 0;
+    public EnemyController enemyController;
 
     void Start()
     {
@@ -67,6 +68,7 @@ public class CardDeckManager : MonoBehaviour
     public void ConfirmPlay()
     {
         int aceCount = 0;
+        
 
         for (int i = 0; i < centralPositions.Length; i++)
         {
@@ -84,11 +86,31 @@ public class CardDeckManager : MonoBehaviour
                 }
             }
         }
+        int declaredAces = currentIndex;
 
         confirmationText.text = $"{aceCount} Ases";
         confirmationText.gameObject.SetActive(true);
 
+        enemyController.EvaluatePlayerMove(declaredAces, GetPlayedCards());
+
         StartCoroutine(HideConfirmationText());
+    }
+
+    private GameObject[] GetPlayedCards()
+    {
+        GameObject[] playedCards = new GameObject[currentIndex];
+        for (int i = 0; i < currentIndex; i++)
+        {
+            foreach (GameObject card in selectedCards)
+            {
+                if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
+                {
+                    playedCards[i] = card;
+                    break;
+                }
+            }
+        }
+        return playedCards;
     }
 
     private System.Collections.IEnumerator HideConfirmationText()
