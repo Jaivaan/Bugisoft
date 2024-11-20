@@ -5,8 +5,9 @@ using System.Collections;
 public class MenuController : MonoBehaviour
 {
     public GameObject menuPanel;  // Asigna aquí el panel que se moverá
-    public Vector3 targetPosition = new Vector3(0, 5, 0);  // La posición a la que se moverá el panel (ajústala según sea necesario)
+    public Vector3 targetPosition = new Vector3(0, 5, 0);  // La posición a la que se moverá el panel
     public float moveSpeed = 1f;  // Velocidad de movimiento del panel
+    public AudioSource movementAudioSource;  // Referencia al componente de sonido
 
     public void StartGame()
     {
@@ -16,6 +17,12 @@ public class MenuController : MonoBehaviour
 
     IEnumerator MovePanelAndStartGame()
     {
+        // Inicia el sonido del movimiento
+        if (movementAudioSource != null)
+        {
+            movementAudioSource.Play();
+        }
+
         // Mueve el panel hacia arriba poco a poco
         Vector3 startPosition = menuPanel.transform.position;
         float journeyLength = Vector3.Distance(startPosition, targetPosition);
@@ -31,8 +38,14 @@ public class MenuController : MonoBehaviour
             yield return null;  // Espera un frame
         }
 
+        // Detén el sonido cuando termine el movimiento
+        if (movementAudioSource != null)
+        {
+            movementAudioSource.Stop();
+        }
+
         // Una vez que se haya movido el panel, cambia de escena
-        SceneManager.LoadScene("SampleScene");  // Asegúrate de tener la escena correctamente configurada
+        SceneManager.LoadScene("mainGame");
     }
 
     public void ExitGame()
