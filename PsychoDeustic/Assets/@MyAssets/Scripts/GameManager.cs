@@ -3,14 +3,17 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 using TMPro;
+using System.Diagnostics;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public ButtonController[] buttons;
+    public ButtonController[] playerButtons;
+    public ButtonController[] enemyButtons;
     public TMP_Text deathMessage;
 
-    private ButtonController deathButton;
+    public ButtonController playerDeathButton;
+    public ButtonController enemyDeathButton;
 
     private void Awake()
     {
@@ -22,15 +25,33 @@ public class GameManager : MonoBehaviour
 
     public void CheckIfDeathButton(ButtonController clickedButton)
     {
-        if (clickedButton == deathButton)
+        if (clickedButton.isEnemyButton)
         {
-            StartCoroutine(DeathSequence());
+            if (clickedButton == enemyDeathButton)
+            {
+                StartCoroutine(DeathSequence(true));
+            }
+        }
+        else
+        {
+            if (clickedButton == playerDeathButton)
+            {
+                StartCoroutine(DeathSequence(false));
+            }
         }
     }
 
-    private IEnumerator DeathSequence()
+    private IEnumerator DeathSequence(bool isEnemy)
     {
-        deathMessage.text = "Has muerto";
+        if (isEnemy == true)
+        {
+            deathMessage.text = "El enemigo ha muerto";
+        }
+        else
+        {
+            deathMessage.text = "Has muerto";
+        }
+        
         deathMessage.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2);
@@ -42,12 +63,20 @@ public class GameManager : MonoBehaviour
     {
         deathMessage.gameObject.SetActive(false);
 
-        foreach (ButtonController button in buttons)
+        foreach (ButtonController button in playerButtons)
+        {
+            button.ResetButton();
+        }
+        foreach (ButtonController button in enemyButtons)
         {
             button.ResetButton();
         }
 
-        deathButton = buttons[UnityEngine.Random.Range(0, buttons.Length)];
+        playerDeathButton = playerButtons[UnityEngine.Random.Range(0, playerButtons.Length)];
+        playerDeathButton.isDeathButton = true;
+
+        enemyDeathButton = enemyButtons[UnityEngine.Random.Range(0, enemyButtons.Length)];
+        enemyDeathButton.isDeathButton = true;
 
     }
 }

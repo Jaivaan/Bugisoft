@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     private System.Random random;
     public Material green;
     public Material red;
+    public ButtonController[] enemyButtons;
 
     void Start()
     {
@@ -68,6 +69,29 @@ public class EnemyController : MonoBehaviour
     private void EnemyPenalty()
     {
         Debug.Log("El enemigo pulsa boton.");
+
+        ButtonController button = GetRandomAvailableButton();
+
+        Debug.Log($"El enemigo presionó el botón: {button.name}");
+
+        button.OnClick();
+    }
+
+    private ButtonController GetRandomAvailableButton()
+    {
+        var availableButtons = new List<ButtonController>();
+        foreach (var button in enemyButtons)
+        {
+            if (button.isClickable)
+            {
+                availableButtons.Add(button);
+            }
+        }
+
+        if (availableButtons.Count == 0) return null;
+
+        int randomIndex = UnityEngine.Random.Range(0, availableButtons.Count);
+        return availableButtons[randomIndex];
     }
 
     private void PlayerPenalty()

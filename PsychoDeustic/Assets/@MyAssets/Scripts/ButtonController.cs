@@ -7,7 +7,11 @@ public class ButtonController : MonoBehaviour
     public Material redMaterial; // Material para "clickeable"
     public Material blueMaterial; // Material para "no clickeable"
 
-    private bool isClickable = true;
+    public bool isClickable = true;
+
+    public bool isEnemyButton = false;
+
+    public bool isDeathButton = false;
 
     public void OnHoverEnter()
     {
@@ -37,7 +41,8 @@ public class ButtonController : MonoBehaviour
         {
             isClickable = false;
             GetComponent<MeshRenderer>().material = blueMaterial;
-            GameManager.Instance.CheckIfDeathButton(this); // Verificar si este botón es el "mortal"
+
+            GameManager.Instance.CheckIfDeathButton(this); 
             
         }
     }
@@ -45,6 +50,7 @@ public class ButtonController : MonoBehaviour
     public void ResetButton()
     {
         isClickable = true;
+        isDeathButton = false;
         GetComponent<MeshRenderer>().material = redMaterial;
     }
 }
