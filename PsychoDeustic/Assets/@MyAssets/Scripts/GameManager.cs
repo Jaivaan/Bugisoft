@@ -14,11 +14,14 @@ public class GameManager : MonoBehaviour
 
     public ButtonController playerDeathButton;
     public ButtonController enemyDeathButton;
+    public AudioClip deathSound;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+        audioSource = GetComponent<AudioSource>();
 
         ResetButtons();
     }
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         {
             if (clickedButton == enemyDeathButton)
             {
+                audioSource.PlayOneShot(deathSound);
                 StartCoroutine(DeathSequence(true));
             }
         }
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour
         {
             if (clickedButton == playerDeathButton)
             {
+                audioSource.PlayOneShot(deathSound);
                 StartCoroutine(DeathSequence(false));
             }
         }
@@ -46,6 +51,7 @@ public class GameManager : MonoBehaviour
         if (isEnemy == true)
         {
             deathMessage.text = "El enemigo ha muerto";
+
         }
         else
         {
