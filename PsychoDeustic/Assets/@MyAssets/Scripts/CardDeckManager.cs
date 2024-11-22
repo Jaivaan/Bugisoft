@@ -14,6 +14,7 @@ public class CardDeckManager : MonoBehaviour
     public TMP_Text confirmationText;
     private int currentIndex = 0;
     public EnemyController enemyController;
+    public bool IsFirstPlayerMove = true;
 
     void Start()
     {

@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
-        bool believesPlayer = random.Next(0, 100) < 1;
+        bool believesPlayer = random.Next(0, 100) < 99;
 
         if (believesPlayer)
         {
@@ -118,5 +118,6 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log($"El enemigo ha jugado {cardsToPlay} Ases.");
+        cardDeckManager.IsFirstPlayerMove = true;
     }
 }
