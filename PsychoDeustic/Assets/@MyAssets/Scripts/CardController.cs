@@ -15,6 +15,12 @@ public class CardController : MonoBehaviour
     public void OnClick()
     {
         Debug.Log("Carta seleccionada: " + gameObject.name);
+
+        if (cardDeckManager.IsFirstPlayerMove)
+        {
+            cardDeckManager.ClearCentralCards();
+            cardDeckManager.IsFirstPlayerMove = false;
+        }
         cardDeckManager.MoveCardToTable(gameObject);
         this.transform.Rotate(90, -180, 0);
     }
