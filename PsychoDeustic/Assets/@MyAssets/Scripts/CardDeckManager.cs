@@ -1,13 +1,15 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 
 public class CardDeckManager : MonoBehaviour
 {
     public GameObject[] cards;
-    public Transform[] cardPositions; 
-
+    public Transform[] cardPositions;
+    public Transform[] enemyCardPositions;
     private GameObject[] selectedCards;
+    private GameObject[] enemySelectedCards;
     public Transform[] centralPositions;
     public TMP_Text confirmationText;
     private int currentIndex = 0;
@@ -15,10 +17,13 @@ public class CardDeckManager : MonoBehaviour
 
     void Start()
     {
-        
-        selectedCards = GetRandomCards(6);
+        List<GameObject> assignedCards = new List<GameObject>();
 
-      
+        selectedCards = GetRandomCards(6);
+        assignedCards.AddRange(selectedCards);
+
+        
+
         for (int i = 0; i < selectedCards.Length; i++)
         {
             GameObject card = selectedCards[i];
@@ -29,22 +34,44 @@ public class CardDeckManager : MonoBehaviour
             card.transform.Rotate(180, 0, 0);
             card.SetActive(true);
         }
+
+        enemySelectedCards = GetRandomCards(6, assignedCards);
+
+        for (int i = 0; i < enemySelectedCards.Length; i++)
+        {
+            GameObject card = enemySelectedCards[i];
+            Transform position = enemyCardPositions[i];
+
+            card.transform.position = position.position;
+            card.transform.rotation = position.rotation;
+            card.SetActive(true);
+        }
     }
 
-    public GameObject[] GetRandomCards(int count)
+    public GameObject[] GetRandomCards(int count, List<GameObject> excludedCards = null)
     {
         GameObject[] randomCards = new GameObject[count];
         System.Random random = new System.Random();
+
+        List<GameObject> availableCards = new List<GameObject>(cards);
+
+        if (excludedCards != null)
+        {
+            availableCards.RemoveAll(card => excludedCards.Contains(card));
+        }
+
         for (int i = 0; i < count; i++)
         {
-            int index;
-            do
+            if (availableCards.Count == 0)
             {
-                index = random.Next(0, cards.Length);
+                Debug.LogError("No hay suficientes cartas disponibles para asignar.");
+                break;
             }
-            while (System.Array.Exists(randomCards, c => c == cards[index])); 
 
-            randomCards[i] = cards[index];
+            int index = random.Next(0, availableCards.Count);
+            randomCards[i] = availableCards[index];
+
+            availableCards.RemoveAt(index);
         }
         return randomCards;
     }
@@ -111,6 +138,26 @@ public class CardDeckManager : MonoBehaviour
             }
         }
         return playedCards;
+    }
+
+    public GameObject[] GetEnemyCards()
+    {
+        return enemySelectedCards;
+    }
+
+    public void ClearCentralCards()
+    {
+        foreach (Transform position in centralPositions)
+        {
+            if (position.childCount > 0)
+            {
+                foreach (Transform child in position)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+        currentIndex = 0;
     }
 
     private System.Collections.IEnumerator HideConfirmationText()

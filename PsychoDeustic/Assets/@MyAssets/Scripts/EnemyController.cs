@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public Material green;
     public Material red;
     public ButtonController[] enemyButtons;
+    public CardDeckManager cardDeckManager;
 
     void Start()
     {
@@ -102,5 +103,20 @@ public class EnemyController : MonoBehaviour
     private void EnemyTurn()
     {
         Debug.Log("El enemigo está jugando...");
+
+        GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
+        int cardsToPlay = UnityEngine.Random.Range(1, 4);
+        cardDeckManager.ClearCentralCards(); 
+
+        for (int i = 0; i < cardsToPlay; i++)
+        {
+            if (i < enemyCards.Length)
+            {
+                GameObject card = enemyCards[i];
+                cardDeckManager.MoveCardToTable(card);
+            }
+        }
+
+        Debug.Log($"El enemigo ha jugado {cardsToPlay} Ases.");
     }
 }
