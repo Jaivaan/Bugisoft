@@ -150,12 +150,10 @@ public class CardDeckManager : MonoBehaviour
     {
         foreach (Transform position in centralPositions)
         {
-            if (position.childCount > 0)
+            while (position.childCount > 0)
             {
-                foreach (Transform child in position)
-                {
-                    Destroy(child.gameObject);
-                }
+                Transform child = position.GetChild(0);
+                Destroy(child.gameObject);
             }
         }
         currentIndex = 0;

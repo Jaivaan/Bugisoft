@@ -103,10 +103,11 @@ public class EnemyController : MonoBehaviour
     private void EnemyTurn()
     {
         Debug.Log("El enemigo está jugando...");
+        cardDeckManager.ClearCentralCards();
 
         GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
         int cardsToPlay = UnityEngine.Random.Range(1, 4);
-        cardDeckManager.ClearCentralCards(); 
+        
 
         for (int i = 0; i < cardsToPlay; i++)
         {
@@ -114,6 +115,7 @@ public class EnemyController : MonoBehaviour
             {
                 GameObject card = enemyCards[i];
                 cardDeckManager.MoveCardToTable(card);
+                card.transform.Rotate(90, 0, 0);
             }
         }
 
