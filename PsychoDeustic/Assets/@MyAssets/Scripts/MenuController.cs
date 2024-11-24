@@ -45,7 +45,7 @@ public class MenuController : MonoBehaviour
         }
 
         // Una vez que se haya movido el panel, cambia de escena
-        SceneManager.LoadScene("mainGame1");
+        SceneManager.LoadScene("mainGameScene");
     }
 
     public void ExitGame()
