@@ -6,7 +6,7 @@ public class LightController : MonoBehaviour
     public Light[] lights;  // Array de luces que quieres encender
     public Material materialSinEmision;  // Material sin emisión
     public Material materialConEmision;  // Material con emisión
-    public GameObject objectToChange;  // El objeto cuyo material cambiarás
+    public GameObject[] objectsToChange;  // Los objetos cuyos materiales cambiarás
     public AudioClip switchSound;  // El sonido de "switch" que se reproducirá
     private AudioSource audioSource;  // El componente AudioSource para reproducir el sonido
 
@@ -25,7 +25,6 @@ public class LightController : MonoBehaviour
 
     IEnumerator TurnOnLightsAndChangeMaterial(float delay)
     {
-        // Esperamos el tiempo especificado (2 segundos en este caso)
         yield return new WaitForSeconds(delay);
 
         // Activamos todas las luces del array
@@ -34,14 +33,20 @@ public class LightController : MonoBehaviour
             light.enabled = true; // Enciende las luces
         }
 
-        // Cambiamos el material del objeto a uno con emisión
-        Renderer renderer = objectToChange.GetComponent<Renderer>();  // Obtener el Renderer del objeto
-        renderer.material = materialConEmision;  // Cambiar el material a uno con emisión
+        // Cambiamos el material de cada objeto en el array a uno con emisión
+        foreach (GameObject obj in objectsToChange)
+        {
+            Renderer renderer = obj.GetComponent<Renderer>();  // Obtener el Renderer del objeto
+            if (renderer != null)
+            {
+                renderer.material = materialConEmision;  // Cambiar el material a uno con emisión
+            }
+        }
 
         // Reproducimos el sonido de "switch"
         if (switchSound != null)
         {
-            audioSource.PlayOneShot(switchSound);  // Reproduce el sonido solo una vez
+            audioSource.PlayOneShot(switchSound);
         }
         else
         {
