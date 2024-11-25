@@ -7327,12 +7327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c300901c736bfc4fbf56ce7ba55ac55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &590614195 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6888806815857526915, guid: 35f13071e8be5344b8d636321bc59d3a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1442359651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &617170827 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8586733672170459746, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
@@ -8443,12 +8437,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &668893688 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4058852915679833821, guid: 35f13071e8be5344b8d636321bc59d3a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1442359651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &734343292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10350,7 +10338,8 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 0}
+  m_ModelPrefab: {fileID: 4920520283471408250, guid: bfcaafb44eb3e1f46beb84f672f07bfe,
+    type: 3}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
   m_AnimateModel: 0
@@ -15457,7 +15446,8 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 0}
+  m_ModelPrefab: {fileID: 7000741646347731880, guid: bf328d238f6fe894093825a29fe7708d,
+    type: 3}
   m_ModelParent: {fileID: 0}
   m_Model: {fileID: 0}
   m_AnimateModel: 0
@@ -22351,15 +22341,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987159757}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6804c3c57b5b6954dbca5684c56c83a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftHandTarget: {fileID: 1422556389}
   rightHandTarget: {fileID: 836714739}
-  leftHandBone: {fileID: 668893688}
-  rightHandBone: {fileID: 590614195}
+  leftHandBone: {fileID: 0}
+  rightHandBone: {fileID: 0}
   positionLerpSpeed: 10
   rotationLerpSpeed: 10
 --- !u!4 &1992892227 stripped
