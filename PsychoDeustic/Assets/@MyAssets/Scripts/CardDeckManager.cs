@@ -148,16 +148,29 @@ public class CardDeckManager : MonoBehaviour
 
     public void ClearCentralCards()
     {
-        foreach (Transform position in centralPositions)
+        for (int i = 0; i < currentIndex; i++)
         {
-            while (position.childCount > 0)
+            foreach (GameObject card in selectedCards)
             {
-                Transform child = position.GetChild(0);
-                Destroy(child.gameObject);
+                if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
+                {
+                    card.SetActive(false);
+                    break;
+                }
+            }
+
+            foreach (GameObject card in enemySelectedCards)
+            {
+                if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
+                {
+                    card.SetActive(false);
+                    break;
+                }
             }
         }
         currentIndex = 0;
     }
+
 
     private System.Collections.IEnumerator HideConfirmationText()
     {
