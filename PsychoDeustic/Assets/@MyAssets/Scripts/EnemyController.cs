@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -107,7 +108,6 @@ public class EnemyController : MonoBehaviour
 
         GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
         int cardsToPlay = UnityEngine.Random.Range(1, 4);
-        
 
         for (int i = 0; i < cardsToPlay; i++)
         {
@@ -118,6 +118,18 @@ public class EnemyController : MonoBehaviour
                 card.transform.Rotate(90, 0, 0);
             }
         }
+
+
+        //enemyCards.Skip(cardsToPlay).ToArray();
+
+        //for (int i = 0;i < cardsToPlay;i++)
+        //{
+        //    enemyCards.
+        //}
+
+        GameObject[] newArray = new GameObject[enemyCards.Length - cardsToPlay];
+        System.Array.Copy(enemyCards, cardsToPlay, newArray, 0, newArray.Length);
+        //cardDeckManager.SetEnemyCards(newArray);
 
         Debug.Log($"El enemigo ha jugado {cardsToPlay} Ases.");
         cardDeckManager.IsFirstPlayerMove = true;

@@ -146,6 +146,11 @@ public class CardDeckManager : MonoBehaviour
         return enemySelectedCards;
     }
 
+    public void SetEnemyCards(GameObject[] cards)
+    {
+        enemySelectedCards = cards;
+    }
+
     public void ClearCentralCards()
     {
         for (int i = 0; i < currentIndex; i++)
