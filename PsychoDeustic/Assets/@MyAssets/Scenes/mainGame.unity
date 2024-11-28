@@ -13700,6 +13700,42 @@ MonoBehaviour:
   - {fileID: 1440717791}
   - {fileID: 335626785}
   cardDeckManager: {fileID: 1428430458}
+--- !u!95 &1163389404
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163389400}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 230daac6bbad261429bd6a6bd121aa2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1163389405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163389400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e063ccf02abaf45b922e3a1569ad62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1163389404}
+  animationTrigger: PlayAnimation
+  interval: 2
 --- !u!1 &1185978032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3918041716817799808, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
@@ -22946,7 +22982,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 35f13071e8be5344b8d636321bc59d3a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.175
+      value: -0.087
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35f13071e8be5344b8d636321bc59d3a,
         type: 3}
@@ -23016,6 +23052,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1163389402}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35f13071e8be5344b8d636321bc59d3a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1163389404}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35f13071e8be5344b8d636321bc59d3a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1163389405}
   m_SourcePrefab: {fileID: 100100000, guid: 35f13071e8be5344b8d636321bc59d3a, type: 3}
 --- !u!4 &2038093825 stripped
 Transform:
