@@ -86,10 +86,11 @@ public class CardDeckManager : MonoBehaviour
             card.transform.position = targetPosition.position;
             card.transform.rotation = targetPosition.rotation;
             currentIndex++;
+            Debug.Log($"Carta {card.name} movida al centro en posiciÃ³n {currentIndex - 1}.");
         }
         else
         {
-            Debug.LogWarning("No hay más posiciones centrales disponibles.");
+            Debug.LogWarning("No hay mï¿½s posiciones centrales disponibles.");
         }
     }
 
@@ -159,6 +160,7 @@ public class CardDeckManager : MonoBehaviour
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
                 {
+                    Debug.Log($"Eliminando carta: {card.name}");
                     card.SetActive(false);
                     break;
                 }
@@ -168,6 +170,7 @@ public class CardDeckManager : MonoBehaviour
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
                 {
+                    Debug.Log($"Eliminando carta: {card.name}");
                     card.SetActive(false);
                     break;
                 }

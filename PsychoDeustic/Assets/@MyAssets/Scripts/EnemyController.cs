@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.Log("El enemigo piensa que estás mintiendo. Levanta tus cartas.");
+            Debug.Log("El enemigo piensa que estï¿½s mintiendo. Levanta tus cartas.");
             CheckPlayerCards(declaredCards, playedCards);
         }
     }
@@ -58,12 +58,12 @@ public class EnemyController : MonoBehaviour
         }
         if (realAces == declaredAces)
         {
-            Debug.Log("El jugador estaba diciendo la verdad. Penalización para el enemigo.");
+            Debug.Log("El jugador estaba diciendo la verdad. Penalizaciï¿½n para el enemigo.");
             EnemyPenalty();
         }
         else
         {
-            Debug.Log($"El jugador estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realAces}.");
+            Debug.Log($"El jugador estaba mintiendo. Declarï¿½ {declaredAces} Ases pero tenï¿½a {realAces}.");
             PlayerPenalty();
         }
     }
@@ -74,7 +74,7 @@ public class EnemyController : MonoBehaviour
 
         ButtonController button = GetRandomAvailableButton();
 
-        Debug.Log($"El enemigo presionó el botón: {button.name}");
+        Debug.Log($"El enemigo presionï¿½ el botï¿½n: {button.name}");
 
         button.OnClick();
     }
@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyTurn()
     {
-        Debug.Log("El enemigo está jugando...");
+        Debug.Log("El enemigo estï¿½ jugando...");
         cardDeckManager.ClearCentralCards();
 
         GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
@@ -116,6 +116,7 @@ public class EnemyController : MonoBehaviour
                 GameObject card = enemyCards[i];
                 cardDeckManager.MoveCardToTable(card);
                 card.transform.Rotate(90, 0, 0);
+                Debug.Log($"El enemigo jugÃ³ la carta: {card.name}");
             }
         }
 
@@ -129,7 +130,7 @@ public class EnemyController : MonoBehaviour
 
         GameObject[] newArray = new GameObject[enemyCards.Length - cardsToPlay];
         System.Array.Copy(enemyCards, cardsToPlay, newArray, 0, newArray.Length);
-        //cardDeckManager.SetEnemyCards(newArray);
+        cardDeckManager.SetEnemyCards(newArray);
 
         Debug.Log($"El enemigo ha jugado {cardsToPlay} Ases.");
         cardDeckManager.IsFirstPlayerMove = true;
