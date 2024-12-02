@@ -19,6 +19,7 @@ public class CardController : MonoBehaviour
         if (cardDeckManager.IsFirstPlayerMove)
         {
             cardDeckManager.ClearCentralCards();
+            cardDeckManager.provisional.Add(gameObject);
             cardDeckManager.IsFirstPlayerMove = false;
         }
         cardDeckManager.MoveCardToTable(gameObject);

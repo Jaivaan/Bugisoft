@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class CardDeckManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class CardDeckManager : MonoBehaviour
     private GameObject[] selectedCards;
     private GameObject[] enemySelectedCards;
     public Transform[] centralPositions;
+    public List<GameObject> cartasRestantes;
+    public List<GameObject> provisional;
     public TMP_Text confirmationText;
     private int currentIndex = 0;
     public EnemyController enemyController;
@@ -92,26 +95,33 @@ public class CardDeckManager : MonoBehaviour
         {
             Debug.LogWarning("No hay m�s posiciones centrales disponibles.");
         }
+
+       
     }
 
     public void ConfirmPlay()
     {
         int aceCount = 0;
-        
+        int count = 0;
+
 
         for (int i = 0; i < centralPositions.Length; i++)
         {
             Transform centralPosition = centralPositions[i];
-
+            
             foreach (GameObject card in selectedCards)
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPosition.position) < 0.01f)
                 {
+                    count++;
                     if (card.name.Contains("Ace"))
                     {
                         aceCount++;
                     }
+                    provisional.Add(card);
+                    
                     break; 
+
                 }
             }
         }
@@ -119,6 +129,13 @@ public class CardDeckManager : MonoBehaviour
 
         confirmationText.text = $"{aceCount} Ases";
         confirmationText.gameObject.SetActive(true);
+
+        cartasRestantes = new List<GameObject>(selectedCards);
+        foreach (GameObject prov in provisional)
+        {
+            cartasRestantes.Remove(prov);
+        }
+        selectedCards = cartasRestantes.ToArray();
 
         enemyController.EvaluatePlayerMove(declaredAces, GetPlayedCards());
 
@@ -156,25 +173,27 @@ public class CardDeckManager : MonoBehaviour
     {
         for (int i = 0; i < currentIndex; i++)
         {
-            foreach (GameObject card in selectedCards)
+            foreach (GameObject card in provisional)
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
                 {
                     Debug.Log($"Eliminando carta: {card.name}");
                     card.SetActive(false);
-                    break;
+                    //break;
                 }
             }
+            provisional.Clear();
 
-            foreach (GameObject card in enemySelectedCards)
+            foreach (GameObject card in enemyController.provisional)
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
                 {
                     Debug.Log($"Eliminando carta: {card.name}");
                     card.SetActive(false);
-                    break;
+                    //break;
                 }
             }
+            enemyController.provisional.Clear();
         }
         currentIndex = 0;
     }

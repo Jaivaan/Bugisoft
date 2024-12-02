@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public Material red;
     public ButtonController[] enemyButtons;
     public CardDeckManager cardDeckManager;
+    public List<GameObject> provisional;
 
     void Start()
     {
@@ -117,6 +118,7 @@ public class EnemyController : MonoBehaviour
                 cardDeckManager.MoveCardToTable(card);
                 card.transform.Rotate(90, 0, 0);
                 Debug.Log($"El enemigo jugó la carta: {card.name}");
+                provisional.Add(card);
             }
         }
 
