@@ -171,32 +171,29 @@ public class CardDeckManager : MonoBehaviour
 
     public void ClearCentralCards()
     {
-        for (int i = 0; i < currentIndex; i++)
+        foreach (GameObject card in provisional)
         {
-            foreach (GameObject card in provisional)
+            if (card != null)
             {
-                if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
-                {
-                    Debug.Log($"Eliminando carta: {card.name}");
-                    card.SetActive(false);
-                    //break;
-                }
+                Debug.Log($"Eliminando carta: {card.name}");
+                card.SetActive(false);
             }
-            provisional.Clear();
-
-            foreach (GameObject card in enemyController.provisional)
-            {
-                if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
-                {
-                    Debug.Log($"Eliminando carta: {card.name}");
-                    card.SetActive(false);
-                    //break;
-                }
-            }
-            enemyController.provisional.Clear();
         }
+        provisional.Clear();
+
+        foreach (GameObject card in enemyController.provisional)
+        {
+            if (card != null)
+            {
+                Debug.Log($"Eliminando carta: {card.name}");
+                card.SetActive(false);
+            }
+        }
+        enemyController.provisional.Clear();
+
         currentIndex = 0;
     }
+
 
 
     private System.Collections.IEnumerator HideConfirmationText()

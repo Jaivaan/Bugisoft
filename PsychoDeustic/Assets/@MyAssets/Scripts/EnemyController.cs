@@ -122,14 +122,6 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-
-        //enemyCards.Skip(cardsToPlay).ToArray();
-
-        //for (int i = 0;i < cardsToPlay;i++)
-        //{
-        //    enemyCards.
-        //}
-
         GameObject[] newArray = new GameObject[enemyCards.Length - cardsToPlay];
         System.Array.Copy(enemyCards, cardsToPlay, newArray, 0, newArray.Length);
         cardDeckManager.SetEnemyCards(newArray);
