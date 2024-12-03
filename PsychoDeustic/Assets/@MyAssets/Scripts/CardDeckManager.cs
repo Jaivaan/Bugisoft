@@ -147,7 +147,7 @@ public class CardDeckManager : MonoBehaviour
         GameObject[] playedCards = new GameObject[currentIndex];
         for (int i = 0; i < currentIndex; i++)
         {
-            foreach (GameObject card in selectedCards)
+            foreach (GameObject card in provisional)
             {
                 if (card != null && Vector3.Distance(card.transform.position, centralPositions[i].position) < 0.01f)
                 {

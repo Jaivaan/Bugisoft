@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
-        bool believesPlayer = random.Next(0, 100) < 99;
+        bool believesPlayer = random.Next(0, 100) < 1;
 
         if (believesPlayer)
         {
