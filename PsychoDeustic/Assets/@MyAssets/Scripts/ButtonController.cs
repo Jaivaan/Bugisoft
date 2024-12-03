@@ -7,7 +7,7 @@ public class ButtonController : MonoBehaviour
     public Material redMaterial; // Material para "clickeable"
     public Material blueMaterial; // Material para "no clickeable"
 
-    CardDeckManager cardDeckManager;
+    public CardDeckManager cardDeckManager;
 
     public bool isClickable = true;
 
@@ -28,6 +28,12 @@ public class ButtonController : MonoBehaviour
             GameManager.Instance.CheckIfDeathButton(this);
         }
         */
+    }
+
+    void Start()
+    {
+
+        cardDeckManager = FindObjectOfType<CardDeckManager>();
     }
 
     public void OnHoverExit()

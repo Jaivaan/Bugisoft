@@ -66,6 +66,17 @@ public class CardDeckManager : MonoBehaviour
     {
         
         currentRound = (RoundType)(((int)currentRound + 1) % 4);
+
+        foreach (GameObject card in selectedCards)
+        {
+            card.SetActive(false);
+        }
+        foreach(GameObject card in enemySelectedCards)
+        {
+            card.SetActive(false);
+        }
+        ClearCentralCards();
+
         ResetPlayerCards();
         ResetEnemyCards();
 
@@ -75,11 +86,19 @@ public class CardDeckManager : MonoBehaviour
     private void ResetPlayerCards()
     {
         selectedCards = GetRandomCards(6);
+        foreach (GameObject card in selectedCards)
+        {
+            card.SetActive(true);
+        }
     }
 
     private void ResetEnemyCards()
     {
         enemySelectedCards = GetRandomCards(6);
+        foreach (GameObject card in enemySelectedCards)
+        {
+            card.SetActive(true);
+        }
     }
 
     public bool IsCorrectRoundType(GameObject card)
