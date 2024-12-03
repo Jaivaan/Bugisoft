@@ -7,6 +7,8 @@ public class ButtonController : MonoBehaviour
     public Material redMaterial; // Material para "clickeable"
     public Material blueMaterial; // Material para "no clickeable"
 
+    CardDeckManager cardDeckManager;
+
     public bool isClickable = true;
 
     public bool isEnemyButton = false;
@@ -42,7 +44,8 @@ public class ButtonController : MonoBehaviour
             isClickable = false;
             GetComponent<MeshRenderer>().material = blueMaterial;
 
-            GameManager.Instance.CheckIfDeathButton(this); 
+            GameManager.Instance.CheckIfDeathButton(this);
+            cardDeckManager.ChangeRound();
             
         }
     }

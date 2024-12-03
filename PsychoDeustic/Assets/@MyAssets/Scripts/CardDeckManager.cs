@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 
+
 public class CardDeckManager : MonoBehaviour
 {
     public GameObject[] cards;
@@ -18,6 +19,15 @@ public class CardDeckManager : MonoBehaviour
     private int currentIndex = 0;
     public EnemyController enemyController;
     public bool IsFirstPlayerMove = true;
+    public enum RoundType
+    {
+        Aces,
+        Kings,
+        Queens,
+        Jacks
+    }
+
+    public RoundType currentRound = RoundType.Aces;
 
     void Start()
     {
@@ -49,6 +59,43 @@ public class CardDeckManager : MonoBehaviour
             card.transform.position = position.position;
             card.transform.rotation = position.rotation;
             card.SetActive(true);
+        }
+    }
+
+    public void ChangeRound()
+    {
+        
+        currentRound = (RoundType)(((int)currentRound + 1) % 4);
+        ResetPlayerCards();
+        ResetEnemyCards();
+
+        Debug.Log("Nueva ronda: " + currentRound);
+    }
+
+    private void ResetPlayerCards()
+    {
+        selectedCards = GetRandomCards(6);
+    }
+
+    private void ResetEnemyCards()
+    {
+        enemySelectedCards = GetRandomCards(6);
+    }
+
+    public bool IsCorrectRoundType(GameObject card)
+    {
+        switch (currentRound)
+        {
+            case RoundType.Aces:
+                return card.name.Contains("Ace");
+            case RoundType.Kings:
+                return card.name.Contains("King");
+            case RoundType.Queens:
+                return card.name.Contains("Queen");
+            case RoundType.Jacks:
+                return card.name.Contains("Jack");
+            default:
+                return false;
         }
     }
 
@@ -101,7 +148,7 @@ public class CardDeckManager : MonoBehaviour
 
     public void ConfirmPlay()
     {
-        int aceCount = 0;
+        int validCardCount = 0;
         int count = 0;
 
 
@@ -114,9 +161,9 @@ public class CardDeckManager : MonoBehaviour
                 if (card != null && Vector3.Distance(card.transform.position, centralPosition.position) < 0.01f)
                 {
                     count++;
-                    if (card.name.Contains("Ace"))
+                    if (IsCorrectRoundType(card))
                     {
-                        aceCount++;
+                        validCardCount++;
                     }
                     provisional.Add(card);
                     
@@ -127,7 +174,7 @@ public class CardDeckManager : MonoBehaviour
         }
         int declaredAces = currentIndex;
 
-        confirmationText.text = $"{aceCount} Ases";
+        confirmationText.text = $"{validCardCount} Cartas";
         confirmationText.gameObject.SetActive(true);
 
         cartasRestantes = new List<GameObject>(selectedCards);
