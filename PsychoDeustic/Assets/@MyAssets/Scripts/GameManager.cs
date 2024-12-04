@@ -17,8 +17,14 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
 
     public GameObject enemy;
+    public float electrocutedDuration = 5f; // Duración en segundos
 
-    private Animator enemyAnimator; // Referencia al Animator del enemigo
+    // Referencia al Animator del enemigo
+    private Animator enemyAnimator;
+
+    // Variables para el prefab de rayo
+    public GameObject rayoPrefab; // Asigna tu prefab de rayo en el Inspector
+    public Transform rayoSpawnPoint; // Asigna el RayoSpawnPoint en el Inspector
 
     private void Awake()
     {
@@ -73,19 +79,33 @@ public class GameManager : MonoBehaviour
             {
                 // Activar el trigger "Electrocuted"
                 enemyAnimator.SetTrigger("isElectrocuted");
+                Debug.Log("Trigger 'Electrocuted' activado.");
+
+                // Instanciar el prefab de rayo en la posición del spawn point
+                GameObject rayoInstance = Instantiate(rayoPrefab, rayoSpawnPoint.position, rayoSpawnPoint.rotation, enemy.transform);
+                Debug.Log("Prefab de rayo instanciado.");
 
                 // Obtener y desactivar el EnemyAnimationController para detener otras animaciones
                 EnemyAnimationController animationController = enemy.GetComponent<EnemyAnimationController>();
                 if (animationController != null)
                 {
                     animationController.Die(); // Marca al enemigo como muerto
-                                               // Alternativamente, puedes desactivar el componente completamente
-                                               // animationController.enabled = false;
                 }
                 else
                 {
                     Debug.LogError("No se encontró el EnemyAnimationController en el enemigo.");
                 }
+
+                // Esperar la duración de la animación de "Electrocuted"
+                yield return new WaitForSeconds(electrocutedDuration);
+
+                // Destruir el prefab de rayo
+                if (rayoInstance != null)
+                {
+                    Destroy(rayoInstance);
+                    Debug.Log("Prefab de rayo destruido.");
+                }
+
             }
             else
             {
@@ -103,7 +123,6 @@ public class GameManager : MonoBehaviour
 
         ResetButtons();
     }
-
 
     private void ResetButtons()
     {
