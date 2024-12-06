@@ -15,7 +15,6 @@ public class CardDeckManager : MonoBehaviour
     public Transform[] centralPositions;
     public List<GameObject> cartasRestantes;
     public List<GameObject> provisional;
-    public TMP_Text confirmationText;
     private int currentIndex = 0;
     public EnemyController enemyController;
     public bool IsFirstPlayerMove = true;
@@ -161,7 +160,7 @@ public class CardDeckManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No hay m�s posiciones centrales disponibles.");
+            Debug.LogWarning("No hay mas posiciones centrales disponibles.");
         }
 
        
@@ -195,9 +194,6 @@ public class CardDeckManager : MonoBehaviour
         }
         int declaredAces = currentIndex;
 
-        confirmationText.text = $"{validCardCount} Cartas";
-        confirmationText.gameObject.SetActive(true);
-
         cartasRestantes = new List<GameObject>(selectedCards);
         foreach (GameObject prov in provisional)
         {
@@ -206,8 +202,6 @@ public class CardDeckManager : MonoBehaviour
         selectedCards = cartasRestantes.ToArray();
 
         enemyController.EvaluatePlayerMove(declaredAces, GetPlayedCards());
-
-        StartCoroutine(HideConfirmationText());
     }
 
     private GameObject[] GetPlayedCards()
@@ -318,13 +312,6 @@ private IEnumerator WaitThenEnemyPenalty()
     yield return new WaitForSeconds(5f);
     enemyController.EnemyPenalty();
 }
-
-
-    private System.Collections.IEnumerator HideConfirmationText()
-    {
-        yield return new WaitForSeconds(2);
-        confirmationText.gameObject.SetActive(false);
-    }
 
 
 }

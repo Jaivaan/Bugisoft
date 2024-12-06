@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
-        bool believesPlayer = random.Next(0, 100) < 99;
+        bool believesPlayer = random.Next(0, 100) < 70;
 
         if (believesPlayer)
         {
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.Log("El enemigo piensa que est�s mintiendo. Levanta tus cartas.");
+            Debug.Log("El enemigo piensa que estas mintiendo. Levanta tus cartas.");
             CheckPlayerCards(declaredCards, playedCards);
         }
     }
@@ -68,12 +68,12 @@ public class EnemyController : MonoBehaviour
         }
         if (realAces == declaredAces)
         {
-            Debug.Log("El jugador estaba diciendo la verdad. Penalizaci�n para el enemigo.");
+            Debug.Log("El jugador estaba diciendo la verdad. Penalizacion para el enemigo.");
             EnemyPenalty();
         }
         else
         {
-            Debug.Log($"El jugador estaba mintiendo. Declar� {declaredAces} Ases pero ten�a {realAces}.");
+            Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realAces}.");
             PlayerPenalty();
         }
     }
@@ -84,7 +84,7 @@ public class EnemyController : MonoBehaviour
 
         ButtonController button = GetRandomAvailableButton();
 
-        Debug.Log($"El enemigo presion� el bot�n: {button.name}");
+        Debug.Log($"El enemigo presiona el boton: {button.name}");
 
         button.OnClick();
     }
@@ -113,7 +113,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyTurn()
     {
-        Debug.Log("El enemigo est� jugando...");
+        Debug.Log("El enemigo esta jugando...");
         cardDeckManager.ClearCentralCards();
 
         GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
@@ -126,7 +126,7 @@ public class EnemyController : MonoBehaviour
                 GameObject card = enemyCards[i];
                 cardDeckManager.MoveCardToTable(card);
                 card.transform.Rotate(90, 0, 0);
-                Debug.Log($"El enemigo jugó la carta: {card.name}");
+                Debug.Log($"El enemigo juega la carta: {card.name}");
                 provisional.Add(card);
             }
         }

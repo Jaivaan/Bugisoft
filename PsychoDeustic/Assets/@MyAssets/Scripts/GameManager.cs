@@ -17,14 +17,14 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
 
     public GameObject enemy;
-    public float electrocutedDuration = 5f; // Duración en segundos
+    public float electrocutedDuration = 5f;
 
-    // Referencia al Animator del enemigo
     private Animator enemyAnimator;
 
-    // Variables para el prefab de rayo
-    public GameObject rayoPrefab; // Asigna tu prefab de rayo en el Inspector
-    public Transform rayoSpawnPoint; // Asigna el RayoSpawnPoint en el Inspector
+    public GameObject rayoPrefab;
+    public Transform rayoSpawnPoint;
+
+    public TemblorCamara temblorCamara;
 
     private void Awake()
     {
@@ -32,18 +32,18 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
         audioSource = GetComponent<AudioSource>();
 
-        // Obtener el Animator una vez al inicio
+
         if (enemy != null)
         {
             enemyAnimator = enemy.GetComponent<Animator>();
             if (enemyAnimator == null)
             {
-                Debug.LogError("No se encontró el Animator en el enemigo.");
+                Debug.LogError("No se encontro el Animator en el enemigo.");
             }
         }
         else
         {
-            Debug.LogError("El GameObject del enemigo no está asignado.");
+            Debug.LogError("El GameObject del enemigo no esta asignado.");
         }
 
         ResetButtons();
@@ -77,29 +77,24 @@ public class GameManager : MonoBehaviour
 
             if (enemyAnimator != null)
             {
-                // Activar el trigger "Electrocuted"
                 enemyAnimator.SetTrigger("isElectrocuted");
                 Debug.Log("Trigger 'Electrocuted' activado.");
 
-                // Instanciar el prefab de rayo en la posición del spawn point
                 GameObject rayoInstance = Instantiate(rayoPrefab, rayoSpawnPoint.position, rayoSpawnPoint.rotation, enemy.transform);
                 Debug.Log("Prefab de rayo instanciado.");
 
-                // Obtener y desactivar el EnemyAnimationController para detener otras animaciones
                 EnemyAnimationController animationController = enemy.GetComponent<EnemyAnimationController>();
                 if (animationController != null)
                 {
-                    animationController.Die(); // Marca al enemigo como muerto
+                    animationController.Die();
                 }
                 else
                 {
-                    Debug.LogError("No se encontró el EnemyAnimationController en el enemigo.");
+                    Debug.LogError("No se encontro el EnemyAnimationController en el enemigo.");
                 }
 
-                // Esperar la duración de la animación de "Electrocuted"
                 yield return new WaitForSeconds(electrocutedDuration);
 
-                // Destruir el prefab de rayo
                 if (rayoInstance != null)
                 {
                     Destroy(rayoInstance);
@@ -109,12 +104,21 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("No se encontró el Animator en el enemigo.");
+                Debug.LogError("No se encontro el Animator en el enemigo.");
             }
         }
         else
         {
             deathMessage.text = "Has muerto";
+            /*
+            temblorCamara = Camera.main.GetComponent<temblorCamara>();
+            if (temblorCamara != null)
+            {
+                StartCoroutine(temblorCamara.Shake(2f, 0.1f));
+            }
+
+            yield return new WaitForSeconds(2f);
+            */
         }
 
         deathMessage.gameObject.SetActive(true);

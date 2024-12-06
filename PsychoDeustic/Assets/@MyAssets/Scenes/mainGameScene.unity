@@ -11380,7 +11380,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.907
+      value: 1.9911
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
@@ -11390,7 +11390,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.082
+      value: 0.1059
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
@@ -15402,6 +15402,7 @@ GameObject:
   - component: {fileID: 1071334945}
   - component: {fileID: 1071334944}
   - component: {fileID: 1071334947}
+  - component: {fileID: 1071334948}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -15636,6 +15637,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1071334948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071334942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a191fee0a4d114cbcb6cb66a8b8358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1075523289
 GameObject:
   m_ObjectHideFlags: 0
@@ -19958,7 +19971,6 @@ MonoBehaviour:
   - {fileID: 1075523290}
   cartasRestantes: []
   provisional: []
-  confirmationText: {fileID: 439531701}
   enemyController: {fileID: 1163389402}
   IsFirstPlayerMove: 1
   green: {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
@@ -28299,6 +28311,7 @@ MonoBehaviour:
   electrocutedDuration: 5
   rayoPrefab: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
   rayoSpawnPoint: {fileID: 167739878}
+  temblorCamara: {fileID: 1071334948}
 --- !u!4 &1997415018
 Transform:
   m_ObjectHideFlags: 0
