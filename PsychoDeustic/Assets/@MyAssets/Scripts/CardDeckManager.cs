@@ -19,6 +19,8 @@ public class CardDeckManager : MonoBehaviour
     private int currentIndex = 0;
     public EnemyController enemyController;
     public bool IsFirstPlayerMove = true;
+    public Material green;
+    public Material red;
     public enum RoundType
     {
         Aces,
@@ -282,7 +284,19 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
 
             if (card.name.Contains("Ace"))
             {
+                Renderer rend = card.GetComponent<Renderer>();
+                Material[] mats = rend.materials;
+                mats[0] = green;
+                mats[1] = green;
+                rend.materials = mats;
                 realAces++;
+            }else
+            {
+                Renderer rend = card.GetComponent<Renderer>();
+                Material[] mats = rend.materials;
+                mats[0] = red;
+                mats[1] = red;
+                rend.materials = mats;
             }
         }
     }
@@ -295,8 +309,14 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
     else
     {
         Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realAces}.");
-        enemyController.EnemyPenalty();
+        StartCoroutine(WaitThenEnemyPenalty());
     }
+}
+
+private IEnumerator WaitThenEnemyPenalty()
+{
+    yield return new WaitForSeconds(5f);
+    enemyController.EnemyPenalty();
 }
 
 
