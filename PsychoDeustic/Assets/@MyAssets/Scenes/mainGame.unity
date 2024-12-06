@@ -4762,9 +4762,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1428430458}
         m_TargetAssemblyTypeName: CardDeckManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: EvaluateEnemyMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14203,6 +14203,7 @@ MonoBehaviour:
   - {fileID: 335626785}
   cardDeckManager: {fileID: 1428430458}
   provisional: []
+  cardsToPlay: 0
 --- !u!95 &1163389404
 Animator:
   serializedVersion: 5

@@ -260,7 +260,44 @@ public class CardDeckManager : MonoBehaviour
         currentIndex = 0;
     }
     
+    public void EvaluateEnemyMove()
+{
+    int declaredAcesByEnemy = enemyController.cardsToPlay;
 
+    GameObject[] enemyPlayedCards = enemyController.provisional.ToArray();
+
+    CheckEnemyCards(declaredAcesByEnemy, enemyPlayedCards);
+}
+
+private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
+{
+    int realAces = 0;
+
+    for (int i = 0; i < playedCards.Length; i++)
+    {
+        GameObject card = playedCards[i];
+        if (card != null)
+        {
+            card.transform.Rotate(0, 180, 0);
+
+            if (card.name.Contains("Ace"))
+            {
+                realAces++;
+            }
+        }
+    }
+
+    if (realAces == declaredAces)
+    {
+        Debug.Log("El enemigo estaba diciendo la verdad. Penalización para el jugador.");
+        enemyController.PlayerPenalty();
+    }
+    else
+    {
+        Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realAces}.");
+        enemyController.EnemyPenalty();
+    }
+}
 
 
     private System.Collections.IEnumerator HideConfirmationText()

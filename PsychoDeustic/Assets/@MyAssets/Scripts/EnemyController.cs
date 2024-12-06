@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     public ButtonController[] enemyButtons;
     public CardDeckManager cardDeckManager;
     public List<GameObject> provisional;
+    public int cardsToPlay;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
-        bool believesPlayer = random.Next(0, 100) < 1;
+        bool believesPlayer = random.Next(0, 100) < 99;
 
         if (believesPlayer)
         {
@@ -69,7 +70,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void EnemyPenalty()
+    public void EnemyPenalty()
     {
         Debug.Log("El enemigo pulsa boton.");
 
@@ -97,7 +98,7 @@ public class EnemyController : MonoBehaviour
         return availableButtons[randomIndex];
     }
 
-    private void PlayerPenalty()
+    public void PlayerPenalty()
     {
         Debug.Log("El jugador pulsa boton.");
     }
@@ -108,7 +109,7 @@ public class EnemyController : MonoBehaviour
         cardDeckManager.ClearCentralCards();
 
         GameObject[] enemyCards = cardDeckManager.GetEnemyCards();
-        int cardsToPlay = UnityEngine.Random.Range(1, 4);
+        cardsToPlay = UnityEngine.Random.Range(1, 4);
 
         for (int i = 0; i < cardsToPlay; i++)
         {
