@@ -49,12 +49,20 @@ public class EnemyController : MonoBehaviour
 
                 if (card.name.Contains("Ace"))
                 {
-                    card.GetComponent<Renderer>().material = green;
+                    Renderer rend = card.GetComponent<Renderer>();
+                    Material[] mats = rend.materials;
+                    mats[0] = green;
+                    mats[1] = green;
+                    rend.materials = mats;
                     realAces++;
                 }
                 else
                 {
-                    card.GetComponent<Renderer>().material = red;
+                    Renderer rend = card.GetComponent<Renderer>();
+                    Material[] mats = rend.materials;
+                    mats[0] = red;
+                    mats[1] = red;
+                    rend.materials = mats;
                 }
             }
         }
