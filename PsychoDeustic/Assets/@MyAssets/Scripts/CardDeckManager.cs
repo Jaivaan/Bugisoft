@@ -259,6 +259,7 @@ public class CardDeckManager : MonoBehaviour
 
         currentIndex = 0;
     }
+    
 
 
 
