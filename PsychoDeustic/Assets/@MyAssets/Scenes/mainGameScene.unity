@@ -500,7 +500,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 36650983}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -3590,7 +3590,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 195315024}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -4318,7 +4318,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 234685562}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -7942,7 +7942,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 551780186}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -8435,7 +8435,7 @@ PrefabInstance:
     - target: {fileID: -389303716750597662, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.84
+      value: 4.02
       objectReference: {fileID: 0}
     - target: {fileID: -389303716750597662, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
         type: 3}
@@ -9375,7 +9375,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 584880412}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -9899,7 +9899,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 621868246}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -12099,7 +12099,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 804774217}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -13649,7 +13649,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 893063408}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -13815,7 +13815,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 897441019}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -14077,7 +14077,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 903166472}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -15206,7 +15206,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1060471725}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -16014,7 +16014,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1096424206}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -17884,7 +17884,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1246534361}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -18552,7 +18552,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1331754659}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -19923,18 +19923,18 @@ MonoBehaviour:
   - {fileID: 2074248891}
   - {fileID: 1496729392}
   - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
-  - {fileID: 1880214116}
+  - {fileID: 804774212}
+  - {fileID: 1246534356}
+  - {fileID: 1509386881}
+  - {fileID: 584880407}
+  - {fileID: 234685557}
+  - {fileID: 1060471720}
+  - {fileID: 36650978}
+  - {fileID: 1780003543}
+  - {fileID: 897441014}
+  - {fileID: 621868241}
+  - {fileID: 195315019}
+  - {fileID: 1768266116}
   cardPositions:
   - {fileID: 12967686}
   - {fileID: 1798287817}
@@ -19961,6 +19961,8 @@ MonoBehaviour:
   confirmationText: {fileID: 439531701}
   enemyController: {fileID: 1163389402}
   IsFirstPlayerMove: 1
+  green: {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  red: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   currentRound: 0
 --- !u!4 &1428430459 stripped
 Transform:
@@ -21354,7 +21356,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1496729397}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -21616,7 +21618,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1509386886}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -22433,7 +22435,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1591722956}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -22801,7 +22803,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1602346514}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -24411,7 +24413,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1768266121}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -24673,7 +24675,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1780003548}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -25273,7 +25275,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1428430458}
         m_TargetAssemblyTypeName: CardDeckManager, Assembly-CSharp
         m_MethodName: EvaluateEnemyMove
         m_Mode: 1
@@ -26497,7 +26499,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 1880214121}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -29572,7 +29574,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522786222}
+      - m_Target: {fileID: 2074248896}
         m_TargetAssemblyTypeName: CardController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
