@@ -8,6 +8,7 @@ public class ButtonController : MonoBehaviour
     public Material blueMaterial; // Material para "no clickeable"
 
     public CardDeckManager cardDeckManager;
+    public RoundManager roundManager;
 
     public bool isClickable = true;
 
@@ -63,3 +64,6 @@ public class ButtonController : MonoBehaviour
         GetComponent<MeshRenderer>().material = redMaterial;
     }
 }
+
+
+

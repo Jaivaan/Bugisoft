@@ -871,6 +871,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -1068,6 +1069,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -1754,7 +1756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 117214011}
-  - component: {fileID: 117214010}
+  - component: {fileID: 117214012}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -1762,29 +1764,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &117214010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117214009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ec87052d50780141b05079d7d4e9ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planeRenderer: {fileID: 1025718908}
-  roundMaterials:
-  - {fileID: 2100000, guid: 4765020a63388e24fa65ad360c3a08e7, type: 2}
-  - {fileID: 2100000, guid: 797b466d281cdf049a0c53737c4bdbf2, type: 2}
-  physicalButtons:
-  - {fileID: 325278363}
-  - {fileID: 1327280304}
-  - {fileID: 1345126961}
-  - {fileID: 2011589746}
-  - {fileID: 539446971}
-  - {fileID: 1161724749}
 --- !u!4 &117214011
 Transform:
   m_ObjectHideFlags: 0
@@ -1800,6 +1779,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &117214012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117214009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec87052d50780141b05079d7d4e9ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 4765020a63388e24fa65ad360c3a08e7, type: 2}
+  - {fileID: 2100000, guid: 016476608f7ed4948a8427f5d0deca39, type: 2}
+  - {fileID: 2100000, guid: 797b466d281cdf049a0c53737c4bdbf2, type: 2}
+  - {fileID: 2100000, guid: 332911d99de778141b64e3f2934fdf8a, type: 2}
+  roundPlane: {fileID: 1025718906}
+  playerButtons:
+  - {fileID: 1930364112}
+  - {fileID: 52788315}
+  - {fileID: 1928565262}
+  - {fileID: 649752185}
+  - {fileID: 785168334}
+  - {fileID: 1857690124}
 --- !u!4 &122663892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 975039d602977ea48b28dc1682002184,
@@ -3746,6 +3750,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -3787,12 +3792,6 @@ Transform:
   - {fileID: 1789985200}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &325278363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 1688810429}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &326046393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,6 +3878,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -5665,6 +5665,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -6212,12 +6213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c300901c736bfc4fbf56ce7ba55ac55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &539446971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 1034267177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &551780181 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -253134609012471567, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
@@ -8787,6 +8782,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -9670,6 +9666,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -12210,6 +12207,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -12274,7 +12272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 797b466d281cdf049a0c53737c4bdbf2, type: 2}
+  - {fileID: 2100000, guid: 332911d99de778141b64e3f2934fdf8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14168,12 +14166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c300901c736bfc4fbf56ce7ba55ac55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1161724749 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 490294026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1163389400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 35f13071e8be5344b8d636321bc59d3a,
@@ -14867,12 +14859,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 474681699}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1327280304 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 232610938}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1331754654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8814097313095581566, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
@@ -15166,12 +15152,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 474681699}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1345126961 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 399907779}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1359442039 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4608268719015480408, guid: 4a3a3f70d27c7ae40acc4cbc78ed0363,
@@ -16328,9 +16308,10 @@ MonoBehaviour:
   - {fileID: 1075523290}
   cartasRestantes: []
   provisional: []
-  confirmationText: {fileID: 439531701}
   enemyController: {fileID: 1163389402}
   IsFirstPlayerMove: 1
+  green: {fileID: 0}
+  red: {fileID: 0}
   currentRound: 0
 --- !u!4 &1428430459 stripped
 Transform:
@@ -16666,6 +16647,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 1
   isDeathButton: 0
@@ -19709,7 +19691,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
       propertyPath: m_Name
-      value: Buttons_Cyrcle_1
+      value: Buttons_Cyrcle_Jugador
       objectReference: {fileID: 0}
     - target: {fileID: 1308987167971790318, guid: 975039d602977ea48b28dc1682002184,
         type: 3}
@@ -21465,6 +21447,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -22511,6 +22494,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -22708,6 +22692,7 @@ MonoBehaviour:
   redMaterial: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
   blueMaterial: {fileID: 2100000, guid: 7b26add94f09dc44fb811013f007a3aa, type: 2}
   cardDeckManager: {fileID: 0}
+  roundManager: {fileID: 0}
   isClickable: 1
   isEnemyButton: 0
   isDeathButton: 0
@@ -23275,6 +23260,7 @@ MonoBehaviour:
   electrocutedDuration: 4.5
   rayoPrefab: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
   rayoSpawnPoint: {fileID: 1306184766}
+  temblorCamara: {fileID: 0}
 --- !u!4 &1997415018
 Transform:
   m_ObjectHideFlags: 0
@@ -23741,12 +23727,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf4968b068a54b45a20122ba6977a7a, type: 3}
---- !u!1 &2011589746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975039d602977ea48b28dc1682002184,
-    type: 3}
-  m_PrefabInstance: {fileID: 1399063172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2019078025
 PrefabInstance:
   m_ObjectHideFlags: 0

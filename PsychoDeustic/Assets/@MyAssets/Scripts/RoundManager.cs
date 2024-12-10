@@ -2,31 +2,52 @@ using UnityEngine;
 
 public class RoundManager : MonoBehaviour
 {
-    public Renderer planeRenderer; 
-    public Material[] roundMaterials; 
-    public GameObject[] physicalButtons; 
-    private int currentRound = 0;
+    public Material[] materials;
+    public GameObject roundPlane;
+    public ButtonController[] playerButtons;
 
-    private void Start()
+    private int previousMaterialIndex = -1;
+
+    void Start()
     {
-        UpdateRoundMaterial();
+        if (roundPlane == null || materials.Length < 2 || playerButtons.Length == 0)
+        {
+            Debug.LogError("Faltan referencias en RoundManager o no hay suficientes materiales.");
+            return;
+        }
+
+        ToggleMaterial(true);
     }
 
-    public void ButtonPressed(GameObject button)
+    void Update()
     {
-        if (System.Array.Exists(physicalButtons, b => b == button))
+        foreach (ButtonController button in playerButtons)
         {
-            currentRound = (currentRound + 1) % roundMaterials.Length;
-            UpdateRoundMaterial();
+            if (!button.isClickable)
+            {
+                ToggleMaterial();
+                button.isClickable = true;
+                return;
+            }
         }
     }
 
-    private void UpdateRoundMaterial()
+    private void ToggleMaterial(bool isFirstTime = false)
     {
-        if (planeRenderer != null && roundMaterials.Length > 0)
+        if (roundPlane != null)
         {
-            planeRenderer.material = roundMaterials[currentRound];
-            Debug.Log("Cambiando a la ronda: " + currentRound);
+            int newMaterialIndex;
+
+            do
+            {
+                newMaterialIndex = Random.Range(0, materials.Length);
+            }
+            while (!isFirstTime && newMaterialIndex == previousMaterialIndex);
+
+            roundPlane.GetComponent<Renderer>().material = materials[newMaterialIndex];
+            previousMaterialIndex = newMaterialIndex;
+
+            Debug.Log("Material cambiado a: " + newMaterialIndex);
         }
     }
 }
