@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public ButtonController[] enemyButtons;
     public TMP_Text deathMessage;
 
+    public TMP_Text text;
+
     public ButtonController playerDeathButton;
     public ButtonController enemyDeathButton;
     public AudioClip deathSound;
@@ -73,7 +75,9 @@ public class GameManager : MonoBehaviour
     {
         if (isEnemy)
         {
-            deathMessage.text = "El enemigo ha muerto";
+            //deathMessage.text = "El enemigo ha muerto";
+
+            text.text = "El enemigo ha muerto";
 
             if (enemyAnimator != null)
             {
@@ -109,7 +113,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            deathMessage.text = "Has muerto";
+            //deathMessage.text = "Has muerto";
+
+            text.text = "Has muerto";
             /*
             temblorCamara = Camera.main.GetComponent<temblorCamara>();
             if (temblorCamara != null)
@@ -121,7 +127,7 @@ public class GameManager : MonoBehaviour
             */
         }
 
-        deathMessage.gameObject.SetActive(true);
+        //deathMessage.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(5);
 

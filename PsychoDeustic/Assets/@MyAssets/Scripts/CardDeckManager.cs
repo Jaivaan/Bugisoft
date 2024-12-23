@@ -25,6 +25,8 @@ public class CardDeckManager : MonoBehaviour
     public Transform deckTransform;
     private List<GameObject> deckList;
 
+    public TMP_Text text;
+
     public enum RoundType
     {
         Aces,
@@ -65,6 +67,7 @@ public class CardDeckManager : MonoBehaviour
 
         currentRound = (RoundType)(((int)currentRound + 1) % 4);
         Debug.Log("Nueva ronda: " + currentRound);
+        text.text = "Nueva ronda";
     }
 
     private void DealNewRound()
@@ -319,11 +322,13 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
     if (realCount == declaredAces)
     {
         Debug.Log("El enemigo estaba diciendo la verdad. Penalización para el jugador.");
-        enemyController.PlayerPenalty();
+            text.text = "El enemigo estaba diciendo la verdad. Penalización para el jugador.";
+            enemyController.PlayerPenalty();
     }
     else
     {
         Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realCount}.");
+            text.text = $"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realCount}.";
         StartCoroutine(WaitThenEnemyPenalty());
     }
 }

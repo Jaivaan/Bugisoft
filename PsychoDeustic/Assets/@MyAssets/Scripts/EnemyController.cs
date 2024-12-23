@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class EnemyController : MonoBehaviour
     public List<GameObject> provisional;
     public int cardsToPlay;
 
+    public TMP_Text text;
+
     void Start()
     {
         random = new System.Random();
@@ -22,16 +25,20 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
+        text.text = $"El jugador ha declarado: {declaredCards}";
+
         bool believesPlayer = random.Next(0, 100) < 1;
 
         if (believesPlayer)
         {
             Debug.Log("El enemigo te cree. Su turno.");
+            text.text = "El enemigo te cree. Su turno.";
             EnemyTurn();
         }
         else
         {
             Debug.Log("El enemigo piensa que estas mintiendo. Levanta tus cartas.");
+            text.text = "El enemigo piensa que estas mintiendo. Levanta tus cartas.";
             CheckPlayerCards(declaredCards, playedCards);
         }
     }
@@ -99,6 +106,7 @@ public class EnemyController : MonoBehaviour
     public void EnemyPenalty()
     {
         Debug.Log("El enemigo pulsa boton.");
+        text.text = "El enemigo pulsa boton.";
 
         ButtonController button = GetRandomAvailableButton();
 
@@ -127,6 +135,7 @@ public class EnemyController : MonoBehaviour
     public void PlayerPenalty()
     {
         Debug.Log("El jugador pulsa boton.");
+        text.text = "El jugador pulsa boton.";
     }
 
     private void EnemyTurn()
@@ -153,7 +162,8 @@ public class EnemyController : MonoBehaviour
         System.Array.Copy(enemyCards, cardsToPlay, newArray, 0, newArray.Length);
         cardDeckManager.SetEnemyCards(newArray);
 
-        Debug.Log($"El enemigo ha jugado {cardsToPlay} Ases.");
+        Debug.Log($"El enemigo ha jugado {cardsToPlay}");
+        text.text = $"El enemigo ha jugado {cardsToPlay}";
         cardDeckManager.IsFirstPlayerMove = true;
     }
 }
