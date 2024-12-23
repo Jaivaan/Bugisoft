@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 
 
@@ -20,6 +21,10 @@ public class CardDeckManager : MonoBehaviour
     public bool IsFirstPlayerMove = true;
     public Material green;
     public Material red;
+
+    public Transform deckTransform;
+    private List<GameObject> deckList;
+
     public enum RoundType
     {
         Aces,
@@ -32,56 +37,81 @@ public class CardDeckManager : MonoBehaviour
 
     void Start()
     {
-        List<GameObject> assignedCards = new List<GameObject>();
+        deckList = new List<GameObject>(cards);
 
-        selectedCards = GetRandomCards(6);
-        assignedCards.AddRange(selectedCards);
-
-        
-
-        for (int i = 0; i < selectedCards.Length; i++)
+        foreach (GameObject card in deckList)
         {
-            GameObject card = selectedCards[i];
-            Transform position = cardPositions[i];
-
-            card.transform.position = position.position; 
-            card.transform.rotation = position.rotation;
-            card.transform.Rotate(180, 0, 0);
-            card.SetActive(true);
+            ReturnCardToDeck(card);
         }
 
-        enemySelectedCards = GetRandomCards(6, assignedCards);
-
-        for (int i = 0; i < enemySelectedCards.Length; i++)
-        {
-            GameObject card = enemySelectedCards[i];
-            Transform position = enemyCardPositions[i];
-
-            card.transform.position = position.position;
-            card.transform.rotation = position.rotation;
-            card.SetActive(true);
-        }
+        DealNewRound();
     }
 
     public void ChangeRound()
     {
-        
-        currentRound = (RoundType)(((int)currentRound + 1) % 4);
 
         foreach (GameObject card in selectedCards)
         {
-            card.SetActive(false);
+            ReturnCardToDeck(card);
         }
-        foreach(GameObject card in enemySelectedCards)
+        foreach (GameObject card in enemySelectedCards)
         {
-            card.SetActive(false);
+            ReturnCardToDeck(card);
         }
         ClearCentralCards();
 
-        ResetPlayerCards();
-        ResetEnemyCards();
+        DealNewRound();
 
+        currentRound = (RoundType)(((int)currentRound + 1) % 4);
         Debug.Log("Nueva ronda: " + currentRound);
+    }
+
+    private void DealNewRound()
+    {
+        Shuffle(deckList);
+
+        selectedCards = deckList.Take(6).ToArray();
+        for (int i = 0; i < selectedCards.Length; i++)
+        {
+            GameObject card = selectedCards[i];
+            card.SetActive(true);
+            card.transform.position = cardPositions[i].position;
+            card.transform.rotation = cardPositions[i].rotation;
+            card.transform.Rotate(180, 0, 0);  
+        }
+
+        enemySelectedCards = deckList.Skip(6).Take(6).ToArray();
+        for (int i = 0; i < enemySelectedCards.Length; i++)
+        {
+            GameObject card = enemySelectedCards[i];
+            card.SetActive(true);
+            card.transform.position = enemyCardPositions[i].position;
+            card.transform.rotation = enemyCardPositions[i].rotation; 
+        }
+    }
+
+    private void ReturnCardToDeck(GameObject card)
+    {
+        if (card != null)
+        {
+            card.transform.position = deckTransform.position;
+            card.transform.rotation = deckTransform.rotation;
+            card.SetActive(false);
+        }
+    }
+
+    private void Shuffle(List<GameObject> list)
+    {
+        System.Random rng = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            GameObject value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 
     private void ResetPlayerCards()
@@ -237,8 +267,7 @@ public class CardDeckManager : MonoBehaviour
         {
             if (card != null)
             {
-                Debug.Log($"Eliminando carta: {card.name}");
-                card.SetActive(false);
+                ReturnCardToDeck(card);
             }
         }
         provisional.Clear();
@@ -247,8 +276,7 @@ public class CardDeckManager : MonoBehaviour
         {
             if (card != null)
             {
-                Debug.Log($"Eliminando carta: {card.name}");
-                card.SetActive(false);
+                ReturnCardToDeck(card);
             }
         }
         enemyController.provisional.Clear();

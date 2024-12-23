@@ -3010,7 +3010,7 @@ PrefabInstance:
     - target: {fileID: 108883779594015524, guid: d5743fce9ffff6b448f179393bc9d6a2,
         type: 3}
       propertyPath: m_Intensity
-      value: 2.01
+      value: 9.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3349,7 +3349,7 @@ PrefabInstance:
     - target: {fileID: 108883779594015524, guid: d5743fce9ffff6b448f179393bc9d6a2,
         type: 3}
       propertyPath: m_Intensity
-      value: 2.41
+      value: 5.67
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20129,6 +20129,7 @@ MonoBehaviour:
   IsFirstPlayerMove: 1
   green: {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
   red: {fileID: 2100000, guid: 55fa12dc7870f1e46b6a7f8617949a86, type: 2}
+  deckTransform: {fileID: 1428430459}
   currentRound: 0
 --- !u!4 &1428430459 stripped
 Transform:
