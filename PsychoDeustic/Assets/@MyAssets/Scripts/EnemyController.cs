@@ -49,20 +49,12 @@ public class EnemyController : MonoBehaviour
 
                 if (cardDeckManager.IsCorrectRoundType(card))
                 {
-                    Renderer rend = card.GetComponent<Renderer>();
-                    Material[] mats = rend.materials;
-                    mats[0] = green;
-                    mats[1] = green;
-                    rend.materials = mats;
+                    StartCoroutine(ShowResultThenRevert(card, green, 1f));
                     realCount++;
                 }
                 else
                 {
-                    Renderer rend = card.GetComponent<Renderer>();
-                    Material[] mats = rend.materials;
-                    mats[0] = red;
-                    mats[1] = red;
-                    rend.materials = mats;
+                    StartCoroutine(ShowResultThenRevert(card, red, 1f));
                 }
             }
         }
@@ -76,6 +68,26 @@ public class EnemyController : MonoBehaviour
             Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realCount}.");
             PlayerPenalty();
         }
+    }
+
+    private IEnumerator ShowResultThenRevert(GameObject card, Material newMat, float waitTime)
+    {
+        if (card == null) yield break;
+        Renderer rend = card.GetComponent<Renderer>();
+        if (rend == null) yield break;
+
+        Material[] originalMats = rend.materials;
+
+        Material[] matsChanged = rend.materials;
+        matsChanged[0] = newMat;
+        if (matsChanged.Length > 1)
+            matsChanged[1] = newMat;
+
+        rend.materials = matsChanged;
+
+        yield return new WaitForSeconds(waitTime);
+
+        rend.materials = originalMats;
     }
 
     public void EnemyPenalty()
