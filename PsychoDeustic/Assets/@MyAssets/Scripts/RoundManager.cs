@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class RoundManager : MonoBehaviour
@@ -6,7 +7,7 @@ public class RoundManager : MonoBehaviour
     public GameObject roundPlane;
     public ButtonController[] playerButtons;
 
-    private int previousMaterialIndex = -1;
+    private int materialIndex = 0;
 
     void Start()
     {
@@ -16,9 +17,8 @@ public class RoundManager : MonoBehaviour
             return;
         }
 
-        ToggleMaterial(true);
+        ToggleMaterial();
     }
-
     void Update()
     {
         foreach (ButtonController button in playerButtons)
@@ -32,22 +32,20 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private void ToggleMaterial(bool isFirstTime = false)
+
+
+    private void ToggleMaterial()
     {
-        if (roundPlane != null)
+        if (roundPlane != null && materials.Length > 0)
         {
-            int newMaterialIndex;
-
-            do
+            if (materialIndex >= materials.Length)
             {
-                newMaterialIndex = Random.Range(0, materials.Length);
+                materialIndex = 0; 
             }
-            while (!isFirstTime && newMaterialIndex == previousMaterialIndex);
 
-            roundPlane.GetComponent<Renderer>().material = materials[newMaterialIndex];
-            previousMaterialIndex = newMaterialIndex;
-
-            Debug.Log("Material cambiado a: " + newMaterialIndex);
+            roundPlane.GetComponent<Renderer>().material = materials[materialIndex];
+            Debug.Log("Material cambiado a: " + materialIndex);
+            materialIndex++; 
         }
     }
 }

@@ -32,7 +32,7 @@ public class CardDeckManager : MonoBehaviour
         Queens,
         Jacks
     }
-
+   
     public RoundType currentRound = RoundType.Aces;
 
     void Start()
