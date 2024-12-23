@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"El jugador ha declarado: {declaredCards}");
 
-        bool believesPlayer = random.Next(0, 100) < 70;
+        bool believesPlayer = random.Next(0, 100) < 1;
 
         if (believesPlayer)
         {
@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
     private void CheckPlayerCards(int declaredAces, GameObject[] playedCards)
     {
-        int realAces = 0;
+        int realCount = 0;
 
         for (int i = 0; i < playedCards.Length; i++)
         {
@@ -47,14 +47,14 @@ public class EnemyController : MonoBehaviour
             {
                 card.transform.Rotate(0, 180, 0);
 
-                if (card.name.Contains("Ace"))
+                if (cardDeckManager.IsCorrectRoundType(card))
                 {
                     Renderer rend = card.GetComponent<Renderer>();
                     Material[] mats = rend.materials;
                     mats[0] = green;
                     mats[1] = green;
                     rend.materials = mats;
-                    realAces++;
+                    realCount++;
                 }
                 else
                 {
@@ -66,14 +66,14 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
-        if (realAces == declaredAces)
+        if (realCount == declaredAces)
         {
             Debug.Log("El jugador estaba diciendo la verdad. Penalizacion para el enemigo.");
             EnemyPenalty();
         }
         else
         {
-            Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realAces}.");
+            Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realCount}.");
             PlayerPenalty();
         }
     }

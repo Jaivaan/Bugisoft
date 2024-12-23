@@ -37,6 +37,7 @@ public class CardDeckManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Nueva ronda: " + currentRound);
         deckList = new List<GameObject>(cards);
 
         foreach (GameObject card in deckList)
@@ -295,7 +296,7 @@ public class CardDeckManager : MonoBehaviour
 
 private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
 {
-    int realAces = 0;
+    int realCount = 0;
 
     for (int i = 0; i < playedCards.Length; i++)
     {
@@ -304,14 +305,14 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
         {
             card.transform.Rotate(0, 180, 0);
 
-            if (card.name.Contains("Ace"))
+            if (IsCorrectRoundType(card))
             {
                 Renderer rend = card.GetComponent<Renderer>();
                 Material[] mats = rend.materials;
                 mats[0] = green;
                 mats[1] = green;
                 rend.materials = mats;
-                realAces++;
+                    realCount++;
             }else
             {
                 Renderer rend = card.GetComponent<Renderer>();
@@ -323,14 +324,14 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
         }
     }
 
-    if (realAces == declaredAces)
+    if (realCount == declaredAces)
     {
         Debug.Log("El enemigo estaba diciendo la verdad. Penalización para el jugador.");
         enemyController.PlayerPenalty();
     }
     else
     {
-        Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realAces}.");
+        Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realCount}.");
         StartCoroutine(WaitThenEnemyPenalty());
     }
 }
