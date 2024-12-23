@@ -61,13 +61,19 @@ public class EnemyController : MonoBehaviour
         if (realCount == declaredAces)
         {
             Debug.Log("El jugador estaba diciendo la verdad. Penalizacion para el enemigo.");
-            EnemyPenalty();
+            StartCoroutine(WaitThenEnemyPenalty());
         }
         else
         {
             Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realCount}.");
             PlayerPenalty();
         }
+    }
+
+    private IEnumerator WaitThenEnemyPenalty()
+    {
+        yield return new WaitForSeconds(2f);
+        EnemyPenalty();
     }
 
     private IEnumerator ShowResultThenRevert(GameObject card, Material newMat, float waitTime)

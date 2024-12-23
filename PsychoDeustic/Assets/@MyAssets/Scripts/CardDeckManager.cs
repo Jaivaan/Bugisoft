@@ -351,7 +351,7 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
 
     private IEnumerator WaitThenEnemyPenalty()
 {
-    yield return new WaitForSeconds(5f);
+    yield return new WaitForSeconds(2f);
     enemyController.EnemyPenalty();
 }
 
