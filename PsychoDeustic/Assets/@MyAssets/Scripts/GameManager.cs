@@ -7,52 +7,64 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+
     public ButtonController[] playerButtons;
     public ButtonController[] enemyButtons;
-    public TMP_Text deathMessage;
 
-    public TMP_Text text;
+    public TMP_Text deathMessage;
 
     public ButtonController playerDeathButton;
     public ButtonController enemyDeathButton;
+
     public AudioClip deathSound;
     private AudioSource audioSource;
 
+
     public GameObject enemy;
+    private Animator enemyAnimator;
     public float electrocutedDuration = 5f;
 
-    private Animator enemyAnimator;
-
+ 
     public GameObject rayoPrefab;
     public Transform rayoSpawnPoint;
 
-    public TemblorCamara temblorCamara;
+
+    public GameObject deadEffect;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-        audioSource = GetComponent<AudioSource>();
 
+        audioSource = GetComponent<AudioSource>();
 
         if (enemy != null)
         {
             enemyAnimator = enemy.GetComponent<Animator>();
             if (enemyAnimator == null)
             {
-                Debug.LogError("No se encontro el Animator en el enemigo.");
+                Debug.LogError("No se encontró el Animator en el enemigo.");
             }
         }
         else
         {
-            Debug.LogError("El GameObject del enemigo no esta asignado.");
+            Debug.LogError("El GameObject del enemigo no está asignado.");
         }
+
+        
+        if (deathMessage != null)
+            deathMessage.gameObject.SetActive(false);
+
+        
+        if (deadEffect != null)
+            deadEffect.SetActive(false);
 
         ResetButtons();
     }
 
     public void CheckIfDeathButton(ButtonController clickedButton)
     {
+        // Si el botón es del enemigo
         if (clickedButton.isEnemyButton)
         {
             if (clickedButton == enemyDeathButton)
@@ -61,6 +73,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(DeathSequence(true));
             }
         }
+        // Si el botón es del jugador
         else
         {
             if (clickedButton == playerDeathButton)
@@ -75,10 +88,9 @@ public class GameManager : MonoBehaviour
     {
         if (isEnemy)
         {
-            //deathMessage.text = "El enemigo ha muerto";
+            deathMessage.text = "El enemigo ha muerto";
 
-            text.text = "El enemigo ha muerto";
-
+            // Logica de electrocucioin/animacion
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("isElectrocuted");
@@ -94,7 +106,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("No se encontro el EnemyAnimationController en el enemigo.");
+                    Debug.LogError("No se encontró el EnemyAnimationController en el enemigo.");
                 }
 
                 yield return new WaitForSeconds(electrocutedDuration);
@@ -104,33 +116,29 @@ public class GameManager : MonoBehaviour
                     Destroy(rayoInstance);
                     Debug.Log("Prefab de rayo destruido.");
                 }
-
-            }
-            else
-            {
-                Debug.LogError("No se encontro el Animator en el enemigo.");
             }
         }
         else
         {
-            //deathMessage.text = "Has muerto";
+            deathMessage.text = "Has muerto";
 
-            text.text = "Has muerto";
-            /*
-            temblorCamara = Camera.main.GetComponent<temblorCamara>();
-            if (temblorCamara != null)
+            if (deadEffect != null)
             {
-                StartCoroutine(temblorCamara.Shake(2f, 0.1f));
+                deadEffect.SetActive(true);
             }
 
-            yield return new WaitForSeconds(2f);
-            */
         }
 
-        //deathMessage.gameObject.SetActive(true);
+        deathMessage.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(5f);
 
+        deathMessage.gameObject.SetActive(false);
+
+        if (deadEffect != null)
+        {
+            deadEffect.SetActive(false);
+        }
         ResetButtons();
     }
 
@@ -138,6 +146,12 @@ public class GameManager : MonoBehaviour
     {
         deathMessage.gameObject.SetActive(false);
 
+        if (deadEffect != null)
+        {
+            deadEffect.SetActive(false);
+        }
+
+        // Reset de botones
         foreach (ButtonController button in playerButtons)
         {
             button.ResetButton();
@@ -147,9 +161,11 @@ public class GameManager : MonoBehaviour
             button.ResetButton();
         }
 
+        // Seleccionar un botón "mortal" al azar para el jugador
         playerDeathButton = playerButtons[UnityEngine.Random.Range(0, playerButtons.Length)];
         playerDeathButton.isDeathButton = true;
 
+        // Seleccionar un botón "mortal" al azar para el enemigo
         enemyDeathButton = enemyButtons[UnityEngine.Random.Range(0, enemyButtons.Length)];
         enemyDeathButton.isDeathButton = true;
     }
