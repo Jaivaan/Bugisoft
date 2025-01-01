@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Importar para el cambio de escenas
 using System.Collections;
 
 public class FollowWaypoints : MonoBehaviour
@@ -16,7 +17,6 @@ public class FollowWaypoints : MonoBehaviour
     public GameObject[] objectsToChange;  // Los objetos cuyos materiales cambiarás
     public AudioSource switchAudioSource; // AudioSource que reproducirá el sonido del switch
     public GameObject focusImage; // Imagen del foco rojo en el Canvas (o el propio Canvas)
-
 
     private const float fixedXRotation = -89.98f; // Rotación fija en el eje X
 
@@ -64,15 +64,15 @@ public class FollowWaypoints : MonoBehaviour
         {
             currentWaypointIndex++; // Ir al siguiente waypoint
 
-            // Si no hay más waypoints, apaga las luces y reproduce el sonido
+            // Si no hay más waypoints, apaga las luces, desactiva el foco y reproduce el sonido
             if (currentWaypointIndex >= waypoints.Length)
             {
-                TurnOffLights(); // Apaga las luces
+                TurnOffLightsAndFocus(); // Realiza todas las acciones finales
             }
         }
     }
 
-    void TurnOffLights()
+    void TurnOffLightsAndFocus()
     {
         // Apagamos todas las luces del array
         foreach (Light light in lights)
@@ -90,9 +90,21 @@ public class FollowWaypoints : MonoBehaviour
             }
         }
 
-        focusImage.SetActive(false);
-        // Activamos el AudioSource para reproducir el sonido
+        // Desactiva la imagen del foco rojo en el Canvas
+        if (focusImage != null)
+        {
+            focusImage.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("No se ha asignado el foco rojo en el inspector.");
+        }
+
+        // Reproduce el sonido de switch
         PlaySwitchSound();
+
+        // Cambiar de escena tras 2 segundos
+        StartCoroutine(LoadInitialSceneAfterDelay(2f));
     }
 
     void PlaySwitchSound()
@@ -106,5 +118,12 @@ public class FollowWaypoints : MonoBehaviour
         {
             Debug.LogWarning("No se ha asignado un AudioSource para el sonido del switch.");
         }
+    }
+
+    IEnumerator LoadInitialSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SceneManager.LoadScene("menuScene");
     }
 }
