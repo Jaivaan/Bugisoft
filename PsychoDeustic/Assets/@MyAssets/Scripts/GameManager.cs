@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.SceneManagement; // Para gestionar escenas
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
 
     public ButtonController[] playerButtons;
     public ButtonController[] enemyButtons;
@@ -19,17 +18,17 @@ public class GameManager : MonoBehaviour
     public AudioClip deathSound;
     private AudioSource audioSource;
 
-
     public GameObject enemy;
     private Animator enemyAnimator;
     public float electrocutedDuration = 5f;
 
- 
     public GameObject rayoPrefab;
     public Transform rayoSpawnPoint;
 
-
     public GameObject deadEffect;
+
+    private int roundCounter = 0; // Contador de rondas
+    private bool lastDeathWasEnemy; // Indica quién murió en la última ronda
 
     private void Awake()
     {
@@ -51,11 +50,9 @@ public class GameManager : MonoBehaviour
             Debug.LogError("El GameObject del enemigo no está asignado.");
         }
 
-        
         if (deathMessage != null)
             deathMessage.gameObject.SetActive(false);
 
-        
         if (deadEffect != null)
             deadEffect.SetActive(false);
 
@@ -64,7 +61,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckIfDeathButton(ButtonController clickedButton)
     {
-        // Si el botón es del enemigo
         if (clickedButton.isEnemyButton)
         {
             if (clickedButton == enemyDeathButton)
@@ -73,7 +69,6 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(DeathSequence(true));
             }
         }
-        // Si el botón es del jugador
         else
         {
             if (clickedButton == playerDeathButton)
@@ -86,27 +81,21 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DeathSequence(bool isEnemy)
     {
+        lastDeathWasEnemy = isEnemy; // Almacena quién murió en esta ronda
+
         if (isEnemy)
         {
             deathMessage.text = "El enemigo ha muerto";
 
-            // Logica de electrocucioin/animacion
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("isElectrocuted");
-                Debug.Log("Trigger 'Electrocuted' activado.");
-
                 GameObject rayoInstance = Instantiate(rayoPrefab, rayoSpawnPoint.position, rayoSpawnPoint.rotation, enemy.transform);
-                Debug.Log("Prefab de rayo instanciado.");
 
                 EnemyAnimationController animationController = enemy.GetComponent<EnemyAnimationController>();
                 if (animationController != null)
                 {
                     animationController.Die();
-                }
-                else
-                {
-                    Debug.LogError("No se encontró el EnemyAnimationController en el enemigo.");
                 }
 
                 yield return new WaitForSeconds(electrocutedDuration);
@@ -114,7 +103,6 @@ public class GameManager : MonoBehaviour
                 if (rayoInstance != null)
                 {
                     Destroy(rayoInstance);
-                    Debug.Log("Prefab de rayo destruido.");
                 }
             }
         }
@@ -126,20 +114,39 @@ public class GameManager : MonoBehaviour
             {
                 deadEffect.SetActive(true);
             }
-
         }
 
         deathMessage.gameObject.SetActive(true);
-
         yield return new WaitForSeconds(5f);
-
         deathMessage.gameObject.SetActive(false);
 
         if (deadEffect != null)
         {
             deadEffect.SetActive(false);
         }
-        ResetButtons();
+
+        roundCounter++; // Incrementa el contador de rondas
+
+        if (roundCounter >= 2)
+        {
+            LoadNextScene();
+        }
+        else
+        {
+            ResetButtons();
+        }
+    }
+
+    private void LoadNextScene()
+    {
+        if (lastDeathWasEnemy)
+        {
+            SceneManager.LoadScene("menuScene"); // Reemplaza con el nombre de tu escena
+        }
+        else
+        {
+            SceneManager.LoadScene("enemyVictory"); // Reemplaza con el nombre de tu escena
+        }
     }
 
     private void ResetButtons()
@@ -151,7 +158,6 @@ public class GameManager : MonoBehaviour
             deadEffect.SetActive(false);
         }
 
-        // Reset de botones
         foreach (ButtonController button in playerButtons)
         {
             button.ResetButton();
@@ -161,11 +167,9 @@ public class GameManager : MonoBehaviour
             button.ResetButton();
         }
 
-        // Seleccionar un botón "mortal" al azar para el jugador
         playerDeathButton = playerButtons[UnityEngine.Random.Range(0, playerButtons.Length)];
         playerDeathButton.isDeathButton = true;
 
-        // Seleccionar un botón "mortal" al azar para el enemigo
         enemyDeathButton = enemyButtons[UnityEngine.Random.Range(0, enemyButtons.Length)];
         enemyDeathButton.isDeathButton = true;
     }
