@@ -53,15 +53,17 @@ public class ButtonController : MonoBehaviour
 
             GameManager.Instance.CheckIfDeathButton(this);
             cardDeckManager.ChangeRound();
-            
+
         }
     }
 
     public void ResetButton()
     {
-        isClickable = true;
-        isDeathButton = false;
-        GetComponent<MeshRenderer>().material = redMaterial;
+        {
+            isClickable = true;
+            isDeathButton = false;
+            GetComponent<MeshRenderer>().material = redMaterial;
+        }
     }
 }
 

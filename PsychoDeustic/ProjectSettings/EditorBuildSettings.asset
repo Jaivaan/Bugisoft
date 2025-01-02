@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/@MyAssets/Scenes/monitor.unity
     guid: e96a14e685e1d9a4192652b6357f42fd
+  - enabled: 1
+    path: Assets/@MyAssets/Scenes/playerVictory.unity
+    guid: 864c6c6f31d32964bbf1477529a3cec9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e2e264e515bdeef4993506a372bd64cb,
       type: 2}
