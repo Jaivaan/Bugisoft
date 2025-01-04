@@ -1,29 +1,33 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Importar para el cambio de escenas
+using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class FollowWaypoints : MonoBehaviour
+public class WaypointFollower : MonoBehaviour
 {
-    public Transform[] waypoints; // Array de waypoints a seguir
-    public float speed = 5f;      // Velocidad de movimiento
-    public float rotationSpeed = 5f; // Velocidad de rotación en el eje Y
-    public float delay = 1f;      // Retraso inicial antes de comenzar
-    private int currentWaypointIndex = 0; // Índice del waypoint actual
-    private bool canMove = false; // Controla si puede moverse
+    [Header("Waypoints y movimiento")]
+    public Transform[] waypoints;         // Array de waypoints a seguir
+    public float speed = 5f;             // Velocidad de movimiento
+    public float rotationSpeed = 5f;      // Velocidad de rotación
+    public float startDelay = 1f;         // Retraso inicial antes de empezar a moverse
 
-    // Control de luces
-    public Light[] lights;  // Array de luces que quieres controlar
-    public Material materialSinEmision;  // Material sin emisión
-    public GameObject[] objectsToChange;  // Los objetos cuyos materiales cambiarás
-    public AudioSource switchAudioSource; // AudioSource que reproducirá el sonido del switch
-    public GameObject focusImage; // Imagen del foco rojo en el Canvas (o el propio Canvas)
+    [Header("Offset de Rotación")]
+    [Tooltip("Offset adicional en grados sobre el eje Y. Se suma a la rotación calculada.")]
+    public float rotationOffsetY = 90f;   // Ajuste de 90° por defecto
 
-    private const float fixedXRotation = -89.98f; // Rotación fija en el eje X
+    private int currentWaypointIndex = 0;
+    private bool canMove = false;
+
+    [Header("Acciones finales")]
+    public Light[] lights;                // Luces que se apagarán al terminar
+    public Material materialSinEmision;   // Material sin emisión para aplicar al terminar
+    public GameObject[] objectsToChange;  // Objetos a los que se les cambia el material
+    public AudioSource switchAudioSource; // Sonido para reproducir al terminar
+    public GameObject focusImage;         // Imagen que se desactiva al terminar
 
     void Start()
     {
-        // Comenzar el movimiento tras el retraso
-        Invoke("StartMoving", delay);
+        // Empieza a moverse tras 'startDelay' segundos
+        Invoke(nameof(StartMoving), startDelay);
     }
 
     void Update()
@@ -34,96 +38,121 @@ public class FollowWaypoints : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Método para activar el movimiento.
+    /// </summary>
     void StartMoving()
     {
         canMove = true;
     }
 
+    /// <summary>
+    /// Mueve y rota el objeto hacia el waypoint actual.
+    /// </summary>
     void MoveTowardsWaypoint()
     {
+        // Si hemos superado el último waypoint, no hacemos nada
         if (currentWaypointIndex >= waypoints.Length) return;
 
-        // Punto objetivo actual
-        Transform targetWaypoint = waypoints[currentWaypointIndex];
+        // Tomamos el waypoint actual
+        Transform currentWaypoint = waypoints[currentWaypointIndex];
 
-        // Dirección hacia el waypoint
-        Vector3 direction = (targetWaypoint.position - transform.position).normalized;
+        // Calculamos la dirección hacia él
+        Vector3 direction = currentWaypoint.position - transform.position;
 
-        // Calcula el ángulo de rotación en el eje Y
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float smoothedAngle = Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, rotationSpeed * Time.deltaTime);
-
-        // Aplica solo la rotación en el eje Y, manteniendo el eje X fijo
-        transform.rotation = Quaternion.Euler(fixedXRotation, smoothedAngle, 0f);
-
-        // Mueve hacia el waypoint
-        transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
-
-        // Comprueba si ha alcanzado el waypoint
-        if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
+        // Si estamos suficientemente cerca, pasamos al siguiente waypoint
+        if (direction.magnitude < 0.1f)
         {
-            currentWaypointIndex++; // Ir al siguiente waypoint
-
-            // Si no hay más waypoints, apaga las luces, desactiva el foco y reproduce el sonido
+            currentWaypointIndex++;
             if (currentWaypointIndex >= waypoints.Length)
             {
-                TurnOffLightsAndFocus(); // Realiza todas las acciones finales
+                // Ejecutamos las acciones finales
+                OnFinishedPath();
             }
+            return;
         }
+
+        // Ignoramos la Y para rotar solo en el plano XZ
+        Vector3 directionXZ = new Vector3(direction.x, 0f, direction.z);
+
+        // Solo giramos si el vector no es muy pequeño
+        if (directionXZ.sqrMagnitude > 0.001f)
+        {
+            // LookRotation alinea la Z del objeto con directionXZ
+            Quaternion targetRotation = Quaternion.LookRotation(directionXZ);
+
+            // Aplicamos un offset adicional en el eje Y
+            targetRotation *= Quaternion.Euler(0f, rotationOffsetY, 0f);
+
+            // Suavizamos la rotación
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+
+        // Avanzamos hacia el waypoint
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, currentWaypoint.position, step);
     }
 
-    void TurnOffLightsAndFocus()
+    /// <summary>
+    /// Función que se llama cuando el objeto ha recorrido todos los waypoints.
+    /// </summary>
+    void OnFinishedPath()
     {
-        // Apagamos todas las luces del array
+        // Apaga las luces
         foreach (Light light in lights)
         {
-            light.enabled = false; // Apaga las luces
+            if (light != null)
+                light.enabled = false;
         }
 
-        // Cambiamos el material de cada objeto en el array a uno sin emisión
+        // Cambia el material de los objetos a uno sin emisión
         foreach (GameObject obj in objectsToChange)
         {
-            Renderer renderer = obj.GetComponent<Renderer>();  // Obtener el Renderer del objeto
-            if (renderer != null)
+            if (obj != null)
             {
-                renderer.material = materialSinEmision;  // Cambiar el material a uno sin emisión
+                Renderer renderer = obj.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material = materialSinEmision;
+                }
             }
         }
 
-        // Desactiva la imagen del foco rojo en el Canvas
+        // Desactiva la imagen de foco, si está asignada
         if (focusImage != null)
         {
             focusImage.SetActive(false);
         }
         else
         {
-            Debug.LogWarning("No se ha asignado el foco rojo en el inspector.");
+            Debug.LogWarning("No se ha asignado la imagen del foco (focusImage).");
         }
 
-        // Reproduce el sonido de switch
-        PlaySwitchSound();
-
-        // Cambiar de escena tras 2 segundos
-        StartCoroutine(LoadInitialSceneAfterDelay(2f));
-    }
-
-    void PlaySwitchSound()
-    {
+        // Reproduce el sonido si existe
         if (switchAudioSource != null)
         {
-            switchAudioSource.enabled = true; // Asegura que el AudioSource está activo
-            switchAudioSource.Play(); // Reproduce el sonido
+            switchAudioSource.enabled = true;
+            switchAudioSource.Play();
         }
         else
         {
             Debug.LogWarning("No se ha asignado un AudioSource para el sonido del switch.");
         }
+
+        // Cambia de escena tras 2 segundos
+        StartCoroutine(LoadInitialSceneAfterDelay(2f));
     }
 
+    /// <summary>
+    /// Corrutina que espera un tiempo y luego carga la escena 'menuScene'.
+    /// </summary>
     IEnumerator LoadInitialSceneAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-
         SceneManager.LoadScene("menuScene");
     }
 }
