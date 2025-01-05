@@ -8,8 +8,14 @@ public class EnemyAnimationController : MonoBehaviour
 
     private bool isDead = false;
 
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -37,4 +43,15 @@ public class EnemyAnimationController : MonoBehaviour
     {
         isDead = true;
     }
+
+    public void ReviveEnemy()
+    {
+        isDead = false;
+        animator.Rebind();
+        animator.Update(0f);
+
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+    }
+
 }

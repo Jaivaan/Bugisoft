@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject enemy;
     private Animator enemyAnimator;
-    public float electrocutedDuration = 5f;
+    public float electrocutedDuration = 4f;
 
     public GameObject rayoPrefab;
     public Transform rayoSpawnPoint;
@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
 
     private int roundCounter = 0;
     private bool lastDeathWasEnemy;
+
+    private int enemyDeathCount = 0;
+
 
     private void Awake()
     {
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
 
         if (isEnemy)
         {
-            deathMessage.text = "El enemigo ha muerto";
+            //deathMessage.text = "El enemigo ha muerto";
+            enemyDeathCount++;
 
             if (enemyAnimator != null)
             {
@@ -103,6 +107,14 @@ public class GameManager : MonoBehaviour
                 if (rayoInstance != null)
                 {
                     Destroy(rayoInstance);
+                }
+
+                if (enemyDeathCount < 2)
+                {
+                    if (animationController != null)
+                    {
+                        animationController.ReviveEnemy();
+                    }
                 }
             }
         }
