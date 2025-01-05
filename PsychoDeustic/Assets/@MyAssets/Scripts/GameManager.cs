@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Para gestionar escenas
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject deadEffect;
 
-    private int roundCounter = 0; // Contador de rondas
-    private bool lastDeathWasEnemy; // Indica quién murió en la última ronda
+    private int roundCounter = 0;
+    private bool lastDeathWasEnemy;
 
     private void Awake()
     {
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DeathSequence(bool isEnemy)
     {
-        lastDeathWasEnemy = isEnemy; // Almacena quién murió en esta ronda
+        lastDeathWasEnemy = isEnemy;
 
         if (isEnemy)
         {
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             deadEffect.SetActive(false);
         }
 
-        roundCounter++; // Incrementa el contador de rondas
+        roundCounter++;
 
         if (roundCounter >= 2)
         {
@@ -141,11 +141,11 @@ public class GameManager : MonoBehaviour
     {
         if (lastDeathWasEnemy)
         {
-            SceneManager.LoadScene("menuScene"); // Reemplaza con el nombre de tu escena
+            SceneManager.LoadScene("menuScene");
         }
         else
         {
-            SceneManager.LoadScene("enemyVictory"); // Reemplaza con el nombre de tu escena
+            SceneManager.LoadScene("enemyVictory");
         }
     }
 

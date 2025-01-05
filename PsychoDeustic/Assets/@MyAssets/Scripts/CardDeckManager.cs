@@ -327,8 +327,8 @@ private void CheckEnemyCards(int declaredAces, GameObject[] playedCards)
     }
     else
     {
-        Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realCount}.");
-            text.text = $"El enemigo estaba mintiendo. Declaró {declaredAces} Ases pero tenía {realCount}.";
+        Debug.Log($"El enemigo estaba mintiendo. Declaró {declaredAces} {currentRound} pero tenía {realCount}.");
+            text.text = $"El enemigo estaba mintiendo. Declaró {declaredAces} {currentRound} pero tenía {realCount}.";
         StartCoroutine(WaitThenEnemyPenalty());
     }
 }
