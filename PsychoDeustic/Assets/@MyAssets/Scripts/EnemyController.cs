@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} Ases pero tenia {realCount}.");
+            Debug.Log($"El jugador estaba mintiendo. Declara {declaredAces} {cardDeckManager.currentRound} pero tenia {realCount}.");
             PlayerPenalty();
         }
     }

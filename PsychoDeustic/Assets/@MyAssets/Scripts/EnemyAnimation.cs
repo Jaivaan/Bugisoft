@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class EnemyAnimationController : MonoBehaviour
 {
-    private Animator animator;  // Referencia al Animator
-    private float shakeTimer = 0f;  // Temporizador para activar el Shake
-    public float shakeInterval = 3f;  // Intervalo entre shakes
+    private Animator animator;
+    private float shakeTimer = 0f;
+    public float shakeInterval = 3f;
 
-    // Flag para controlar si el enemigo está vivo o muerto
     private bool isDead = false;
+
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
 
     private void Awake()
     {
-        // Obtener la referencia al Animator si no está asignada
+        animator = GetComponent<Animator>();
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -24,27 +28,30 @@ public class EnemyAnimationController : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return; // Si el enemigo está muerto, no realizar más acciones
+        if (isDead) return;
 
-        // Incrementa el temporizador en cada frame
         shakeTimer += Time.deltaTime;
 
-        // Si el temporizador alcanza el intervalo de tiempo
         if (shakeTimer >= shakeInterval)
         {
-            // Activa el trigger para que se inicie la animación Shake
             animator.SetTrigger("isShaking");
-
-            // Reinicia el temporizador para el siguiente shake
             shakeTimer = 0f;
         }
     }
 
-    // Método público para marcar al enemigo como muerto
     public void Die()
     {
         isDead = true;
-        // Opcional: Puedes desactivar el script si prefieres
-        // this.enabled = false;
     }
+
+    public void ReviveEnemy()
+    {
+        isDead = false;
+        animator.Rebind();
+        animator.Update(0f);
+
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+    }
+
 }

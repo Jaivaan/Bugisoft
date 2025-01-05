@@ -4901,7 +4901,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946074747}
   m_LocalRotation: {x: -0, y: -0.0017547659, z: -0, w: 0.99999845}
-  m_LocalPosition: {x: 0, y: 0, z: 6.9978147}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 0.50503, y: 0.50503, z: 0.50503}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4909,7 +4909,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -0.201, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 329.0019, y: 71.00004}
+  m_AnchoredPosition: {x: 329, y: 71.00004}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946074749
@@ -4932,8 +4932,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "INSTRUCCIONES DEL JUEGO:\n\n\n- L1 / R1: Pulsar botones, seleccionar cartas.\n\n-
-    L2 / R2: Seleccionar en el men\xFA."
+  m_text: "INSTRUCCIONES DEL JUEGO:\n\n- L1 / R1: Pulsar botones, seleccionar cartas.\n\n-
+    L2 / R2: Seleccionar en el men\xFA.\n\n- Bot\xF3n Verde: Confirmar lanzamiento\n\n-
+    Bot\xF3n Blanco: Levantar cartas del rival"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4960,8 +4961,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
