@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            deathMessage.text = "Has muerto";
+            //deathMessage.text = "Has muerto";
 
             if (deadEffect != null)
             {
