@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     private int roundCounter = 0;
     private bool lastDeathWasEnemy;
 
+    private int playerDeathCount = 0;
     private int enemyDeathCount = 0;
 
 
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour
         else
         {
             //deathMessage.text = "Has muerto";
-
+            playerDeathCount++;
             if (deadEffect != null)
             {
                 deadEffect.SetActive(true);
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour
 
         roundCounter++;
 
-        if (roundCounter >= 2)
+        if (enemyDeathCount >= 2 || playerDeathCount >= 2)
         {
             LoadNextScene();
         }
@@ -151,11 +152,11 @@ public class GameManager : MonoBehaviour
 
     private void LoadNextScene()
     {
-        if (lastDeathWasEnemy)
+        if (enemyDeathCount >= 2)
         {
             SceneManager.LoadScene("playerVictory");
         }
-        else
+        else if (playerDeathCount >= 2)
         {
             SceneManager.LoadScene("enemyVictory");
         }
