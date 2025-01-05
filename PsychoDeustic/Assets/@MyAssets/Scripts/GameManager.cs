@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
     {
         if (lastDeathWasEnemy)
         {
-            SceneManager.LoadScene("menuScene");
+            SceneManager.LoadScene("playerVictory");
         }
         else
         {
