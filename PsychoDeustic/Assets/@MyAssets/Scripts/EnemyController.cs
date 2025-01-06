@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
 
         text.text = $"El jugador ha declarado: {declaredCards}";
 
-        bool believesPlayer = random.Next(0, 100) < 1;
+        bool believesPlayer = random.Next(0, 100) < 60;
 
         if (believesPlayer)
         {
