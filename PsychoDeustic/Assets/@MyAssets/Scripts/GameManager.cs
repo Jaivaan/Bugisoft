@@ -5,42 +5,43 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance; // Instancia singleton del GameManager
 
-    public ButtonController[] playerButtons;
-    public ButtonController[] enemyButtons;
+    public ButtonController[] playerButtons; // Botones del jugador
+    public ButtonController[] enemyButtons; // Botones del enemigo
 
-    public TMP_Text deathMessage;
+    public TMP_Text deathMessage; // Mensaje de muerte que se muestra en pantalla
 
-    public ButtonController playerDeathButton;
-    public ButtonController enemyDeathButton;
+    public ButtonController playerDeathButton; // Botón de muerte del jugador
+    public ButtonController enemyDeathButton; // Botón de muerte del enemigo
 
-    public AudioClip deathSound;
-    private AudioSource audioSource;
+    public AudioClip deathSound; // Sonido que se reproduce al morir
+    private AudioSource audioSource; // Fuente de audio para reproducir el sonido
 
-    public GameObject enemy;
-    private Animator enemyAnimator;
-    public float electrocutedDuration = 4f;
+    public GameObject enemy; // Objeto del enemigo
+    private Animator enemyAnimator; // Animator para controlar las animaciones del enemigo
+    public float electrocutedDuration = 4f; // Duración de la animación de electrocutado
 
-    public GameObject rayoPrefab;
-    public Transform rayoSpawnPoint;
+    public GameObject rayoPrefab; // Prefab del rayo que aparece al electrocutar
+    public Transform rayoSpawnPoint; // Punto donde aparece el rayo
 
-    public GameObject deadEffect;
+    public GameObject deadEffect; // Efecto visual de muerte del jugador
 
-    private int roundCounter = 0;
-    private bool lastDeathWasEnemy;
+    private int roundCounter = 0; // Contador de rondas
+    private bool lastDeathWasEnemy; // Indica si la última muerte fue del enemigo
 
-    private int playerDeathCount = 0;
-    private int enemyDeathCount = 0;
-
+    private int playerDeathCount = 0; // Cantidad de muertes del jugador
+    private int enemyDeathCount = 0; // Cantidad de muertes del enemigo
 
     private void Awake()
     {
+        // Configuración del singleton
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         audioSource = GetComponent<AudioSource>();
 
+        // Configuración inicial del enemigo
         if (enemy != null)
         {
             enemyAnimator = enemy.GetComponent<Animator>();
@@ -65,20 +66,21 @@ public class GameManager : MonoBehaviour
 
     public void CheckIfDeathButton(ButtonController clickedButton)
     {
+        // Verifica si se presionó el botón de muerte
         if (clickedButton.isEnemyButton)
         {
             if (clickedButton == enemyDeathButton)
             {
-                audioSource.PlayOneShot(deathSound);
-                StartCoroutine(DeathSequence(true));
+                audioSource.PlayOneShot(deathSound); // Reproduce el sonido de muerte
+                StartCoroutine(DeathSequence(true)); // Inicia la secuencia de muerte para el enemigo
             }
         }
         else
         {
             if (clickedButton == playerDeathButton)
             {
-                audioSource.PlayOneShot(deathSound);
-                StartCoroutine(DeathSequence(false));
+                audioSource.PlayOneShot(deathSound); // Reproduce el sonido de muerte
+                StartCoroutine(DeathSequence(false)); // Inicia la secuencia de muerte para el jugador
             }
         }
     }
@@ -89,69 +91,66 @@ public class GameManager : MonoBehaviour
 
         if (isEnemy)
         {
-            //deathMessage.text = "El enemigo ha muerto";
             enemyDeathCount++;
 
             if (enemyAnimator != null)
             {
-                enemyAnimator.SetTrigger("isElectrocuted");
+                enemyAnimator.SetTrigger("isElectrocuted"); // Activa la animación de electrocutado
                 GameObject rayoInstance = Instantiate(rayoPrefab, rayoSpawnPoint.position, rayoSpawnPoint.rotation, enemy.transform);
 
                 EnemyAnimationController animationController = enemy.GetComponent<EnemyAnimationController>();
                 if (animationController != null)
                 {
-                    animationController.Die();
+                    animationController.Die(); // Marca al enemigo como muerto
                 }
 
-                yield return new WaitForSeconds(electrocutedDuration);
+                yield return new WaitForSeconds(electrocutedDuration); // Espera la duración de la animación
 
                 if (rayoInstance != null)
                 {
-                    Destroy(rayoInstance);
+                    Destroy(rayoInstance); // Destruye el rayo después de la animación
                 }
 
-                if (enemyDeathCount < 2)
+                if (enemyDeathCount < 2 && animationController != null)
                 {
-                    if (animationController != null)
-                    {
-                        animationController.ReviveEnemy();
-                    }
+                    animationController.ReviveEnemy(); // Revive al enemigo si aún no ha perdido
                 }
             }
         }
         else
         {
-            //deathMessage.text = "Has muerto";
             playerDeathCount++;
             if (deadEffect != null)
             {
-                deadEffect.SetActive(true);
+                deadEffect.SetActive(true); // Activa el efecto visual de muerte del jugador
             }
         }
 
-        deathMessage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        deathMessage.gameObject.SetActive(true); // Muestra el mensaje de muerte
+        yield return new WaitForSeconds(5f); // Espera antes de ocultar el mensaje
         deathMessage.gameObject.SetActive(false);
 
         if (deadEffect != null)
         {
-            deadEffect.SetActive(false);
+            deadEffect.SetActive(false); // Desactiva el efecto de muerte del jugador
         }
 
         roundCounter++;
 
+        // Verifica si alguno ha alcanzado el límite de muertes
         if (enemyDeathCount >= 2 || playerDeathCount >= 2)
         {
-            LoadNextScene();
+            LoadNextScene(); // Carga la escena correspondiente
         }
         else
         {
-            ResetButtons();
+            ResetButtons(); // Reinicia los botones para la siguiente ronda
         }
     }
 
     private void LoadNextScene()
     {
+        // Carga la escena de victoria dependiendo de quién haya ganado
         if (enemyDeathCount >= 2)
         {
             SceneManager.LoadScene("playerVictory");
@@ -164,6 +163,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetButtons()
     {
+        // Oculta el mensaje de muerte
         deathMessage.gameObject.SetActive(false);
 
         if (deadEffect != null)
@@ -171,6 +171,7 @@ public class GameManager : MonoBehaviour
             deadEffect.SetActive(false);
         }
 
+        // Resetea todos los botones
         foreach (ButtonController button in playerButtons)
         {
             button.ResetButton();
@@ -180,6 +181,7 @@ public class GameManager : MonoBehaviour
             button.ResetButton();
         }
 
+        // Selecciona botones aleatorios para ser los botones de muerte
         playerDeathButton = playerButtons[UnityEngine.Random.Range(0, playerButtons.Length)];
         playerDeathButton.isDeathButton = true;
 
